@@ -1,15 +1,17 @@
 import logging
 from tkinter import *
-import gobject
-import gst
+#import gobject
+#import gst
 
 logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.DEBUG)
 
 ledsState = {}
 
+'''
 def callbackButton(event):
     #print("Button clicked: ", event.widget['text'])
     logging.info("Button clicked: "+event.widget['text'])
+'''
 
 def callbackLed(event):
     imgOn = PhotoImage(file="gif/rsz_red-led-on-th.png")
@@ -27,7 +29,15 @@ def callbackLed(event):
     else:
         raise Exception('Unknow led state')
     
-
+def initLed(frame):
+    img = PhotoImage(file="gif/rsz_red-led-off-th.png")
+    led = Label(frame, image=img, bg="black")
+    led.image = img
+    led.bind("<Button-1>", callbackLed)
+    ledsState[str(led)] = "OFF"
+    return led
+    
+    
 fenetre = Tk()
 fenetre.wm_title("Rasperry GT500")
 
@@ -43,32 +53,21 @@ canvas.create_image(0, 0, anchor=NW, image=photo)
 verticalPW.add(canvas)
 
 frame = Frame(bg="black", bd=0)
-img = PhotoImage(file="gif/rsz_red-led-off-th.png")
 
-led1 = Label(frame, image=img, bg="black")
-led1.bind("<Button-1>", callbackLed)
+led1 = initLed(frame)
 led1.grid(row=0, column=0)
-ledsState[str(led1)] = "OFF"
 
-led2 = Label(frame, image=img, bg="black")
-led2.bind("<Button-1>", callbackLed)
+led2 = initLed(frame)
 led2.grid(row=0, column=1)
-ledsState[str(led2)] = "OFF"
 
-led3 = Label(frame, image=img, bg="black")
-led3.bind("<Button-1>", callbackLed)
+led3 = initLed(frame)
 led3.grid(row=0, column=2)
-ledsState[str(led3)] = "OFF"
 
-led4 = Label(frame, image=img, bg="black")
-led4.bind("<Button-1>", callbackLed)
+led4 = initLed(frame)
 led4.grid(row=0, column=3)
-ledsState[str(led4)] = "OFF"
 
-led5 = Label(frame, image=img, bg="black")
-led5.bind("<Button-1>", callbackLed)
+led5 = initLed(frame)
 led5.grid(row=0, column=4)
-ledsState[str(led5)] = "OFF"
 
 imgIndic1 = PhotoImage(file="gif/rsz_voyant_phare1_off.png")
 indicator1 = Label(frame, image=imgIndic1, bg="black")
