@@ -10,7 +10,6 @@ indicatorImgList = [
     "gif/rsz_voyant_phare3_off.png",
     "gif/rsz_voyant_warning_off.png",
     "gif/rsz_voyant_moteur_off.png"]
-
 ledsState = {}
 
 def callbackLed(event):
@@ -28,12 +27,39 @@ def callbackLed(event):
         ledsState[str(event.widget)] = "OFF"
     else:
         raise Exception('Unknow led state')
+
+def callback1(event):
+    logging.info("callback 1")
+    callbackLed(event)
+
+def callback2(event):
+    logging.info("callback 2")
+    callbackLed(event)
+
+def callback3(event):
+    logging.info("callback 3")
+    callbackLed(event)
+
+def callback4(event):
+    logging.info("callback 4")
+    callbackLed(event)
+
+def callback5(event):
+    logging.info("callback 5") 
+    callbackLed(event)    
     
+callbackMethodList = [
+    callback1,
+    callback2,
+    callback3,
+    callback4,
+    callback5]
+ 
 def initLed(frame):
     img = PhotoImage(file="gif/rsz_red-led-off-th.png")
     led = Label(frame, image=img, bg="black")
     led.image = img
-    led.bind("<Button-1>", callbackLed)
+    #led.bind("<Button-1>", callbackLed)    
     ledsState[str(led)] = "OFF"
     return led
     
@@ -55,6 +81,8 @@ frame = Frame(bg="black", bd=0)
 for x in range(0, gridNumberOfColumns):
     #logging.info("We're on time %d" % (x))
     led = initLed(frame)
+    #callback = func = getattr(root, callbackMethodList[x]) 
+    led.bind("<Button-1>", callbackMethodList[x])
     led.grid(row=0, column=x)
     
     #logging.info("img: " + indicatorImgList[x])
