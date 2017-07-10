@@ -8,6 +8,9 @@ from GPIO import App
 logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
 logger = logging.getLogger('Application')
 
+left = ''
+right = ''
+
 fenetre = Tk()
 
 #Window without title and border
@@ -29,6 +32,26 @@ def createImage(imgPath):
     photoImage = ImageTk.PhotoImage(image)
     return photoImage
 
+def arrowCallback(event):
+    if (event.type == "2"):
+        if (event.keysym == "Left"):
+            imgLeft = ImageTk.PhotoImage(Image.open("jpg/left_on.jpg"))
+            left.configure(image=imgLeft)
+            left.image = imgLeft
+        elif (event.keysym == "Right"):
+            imgRight = ImageTk.PhotoImage(Image.open("jpg/right_on.jpg"))
+            right.configure(image=imgRight)
+            right.image = imgRight
+    elif (event.type == "3"):
+        if (event.keysym == "Left"):
+            imgLeft = ImageTk.PhotoImage(Image.open("jpg/left_off.jpg"))
+            left.configure(image=imgLeft)
+            left.image = imgLeft
+        elif (event.keysym == "Right"):
+            imgRight = ImageTk.PhotoImage(Image.open("jpg/right_off.jpg"))
+            right.configure(image=imgRight)
+            right.image = imgRight
+
 #---------------------------------------------------------------------------------
 
 verticalPW = PanedWindow(fenetre, orient=VERTICAL, bg="black")
@@ -38,25 +61,32 @@ canvas = Canvas(width=350, height=200, bg="black", highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
-'''
-canvas2 = Canvas(fenetre, width=25, height=25, bg="white", highlightthickness=0)
-canvas2.place(relx=0.1, rely=0.3, anchor=NW)
-'''
+testPanel = PanedWindow(fenetre, orient=HORIZONTAL, bg="black", height=45, width=300)
 
-testPanel = PanedWindow(fenetre, orient=HORIZONTAL, bg="white", height=50, width=150)
-testPanel.add(Label(testPanel, text='Volet 1', background='green', anchor=CENTER))
-testPanel.add(Label(testPanel, text='Volet 2', background='white', anchor=CENTER))
-testPanel.add(Label(testPanel, text='Volet 3', background='green', anchor=CENTER))
+imageLeft = ImageTk.PhotoImage(Image.open("jpg/left_off.jpg"))
+left = Label(testPanel, image=imageLeft, bg="black",anchor=W)
+testPanel.add(left)
+
+testPanel.add(Label(testPanel, text='Volet', background='green'))
+
+imageRight = ImageTk.PhotoImage(Image.open("jpg/right_off.jpg"))
+right = Label(testPanel, image=imageRight, bg="black", anchor=E)
+testPanel.add(right)
+
 testPanel.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+fenetre.bind("<Key>", arrowCallback)
+fenetre.bind("<KeyRelease>", arrowCallback)
 
 frame = Frame(bg="black", bd=0)
 
 for x in range(0, gridNumberOfColumns):
     #logging.info("We're on time %d" % (x))
     led = Led(frame)
+    led.setWidget(testPanel)
     ledTab.append(led)
     
-    #led.bind("<Button-1>", callbackMethodList[x])
+    #led.label.bind("<Button-1>", callbackMethodList[x])
     led.label.grid(row=0, column=x)
     
     #logging.info("img: " + indicatorImgList[x])
