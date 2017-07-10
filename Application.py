@@ -2,8 +2,11 @@ import logging
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
 from Led import Led
+import GPIO
+from GPIO import App
 
-logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
+logger = logging.getLogger('Application')
 
 fenetre = Tk()
 
@@ -36,10 +39,6 @@ canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
 frame = Frame(bg="black", bd=0)
-'''
-led = Led(frame)
-led.label.grid(row=0, column=0)
-'''
 
 for x in range(0, gridNumberOfColumns):
     #logging.info("We're on time %d" % (x))
@@ -63,6 +62,14 @@ verticalPW.add(frame)
 verticalPW.pack()
 
 fenetre.geometry('%dx%d+%d+%d' % (350, 295, 0, 0))
+
+'''
+window = Toplevel()
+window.geometry("200x200")
+Label(window, text="this is window").pack()
+'''
+App()
+
 fenetre.mainloop()
 
 

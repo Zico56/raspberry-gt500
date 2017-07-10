@@ -2,7 +2,8 @@ import logging
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
 
-logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
+logger = logging.getLogger('Led')
 
 class Led:
 
@@ -34,7 +35,7 @@ class Led:
         self.text_img.save("jpg/rsz_green-led-on-th.jpg", format="png")
 
     def callback(self, event):
-        logging.info("callback led")
+        logger.info("callback led")
         self.changeColor()
 
     def changeColor(self):
