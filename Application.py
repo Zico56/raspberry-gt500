@@ -38,6 +38,17 @@ canvas = Canvas(width=350, height=200, bg="black", highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
+'''
+canvas2 = Canvas(fenetre, width=25, height=25, bg="white", highlightthickness=0)
+canvas2.place(relx=0.1, rely=0.3, anchor=NW)
+'''
+
+testPanel = PanedWindow(fenetre, orient=HORIZONTAL, bg="white", height=50, width=150)
+testPanel.add(Label(testPanel, text='Volet 1', background='green', anchor=CENTER))
+testPanel.add(Label(testPanel, text='Volet 2', background='white', anchor=CENTER))
+testPanel.add(Label(testPanel, text='Volet 3', background='green', anchor=CENTER))
+testPanel.place(relx=0.5, rely=0.5, anchor=CENTER)
+
 frame = Frame(bg="black", bd=0)
 
 for x in range(0, gridNumberOfColumns):
