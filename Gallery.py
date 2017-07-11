@@ -8,22 +8,31 @@ logger = logging.getLogger('Gallery')
 class Gallery:
 
     imageLeft = Image.open("jpg/left_off.jpg")
-    imageRight = Image.open("jpg/right_off.jpg")
+    imageRight = Image.open("jpg/right_off.jpg")    
     
     def __init__(self, parent):
-        self.panel = PanedWindow(parent, orient=HORIZONTAL, bg="black", height=45, width=300)
+        self.panel = PanedWindow(parent, orient=HORIZONTAL, bg="black")
 
         imgLeft = ImageTk.PhotoImage(self.imageLeft)
-        self.labelLeft = Label(self.panel, image=imgLeft, bg="black",anchor=W)
+        self.labelLeft = Label(self.panel, image=imgLeft, bg="black")
         self.labelLeft.image = imgLeft
         self.panel.add(self.labelLeft)
-
-        self.panel.add(Label(self.panel, text='Gallery', background='green'))
+        
+        size = 150,150
+        imageTest = Image.open("jpg/test_img_1.jpg")
+        imageTest.thumbnail(size,Image.ANTIALIAS)
+        imgTest = ImageTk.PhotoImage(imageTest)
+        labelTest = Label(self.panel, image=imgTest, bg="black", anchor='center')
+        labelTest.image = imgTest
+        self.panel.add(labelTest)        
 
         imgRight = ImageTk.PhotoImage(self.imageRight)
-        self.labelRight = Label(self.panel, image=imgRight, bg="black", anchor=E)
+        self.labelRight = Label(self.panel, image=imgRight, bg="black")
         self.labelRight.image = imgRight
         self.panel.add(self.labelRight)
+        
+        self.panel.bind("<Key>", self.callback)
+        self.panel.bind("<KeyRelease>", self.callback)
 
     def callback(self, event):
         if (event.type == "2"):

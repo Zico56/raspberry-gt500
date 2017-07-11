@@ -43,9 +43,8 @@ canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
 gallery = Gallery(fenetre)
-gallery.panel.place(relx=0.5, rely=0.5, anchor=CENTER)
-fenetre.bind("<Key>", gallery.callback)
-fenetre.bind("<KeyRelease>", gallery.callback)
+gallery.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
+gallery.panel.focus_set()
 
 frame = Frame(bg="black", bd=0)
 
