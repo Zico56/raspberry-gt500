@@ -26,6 +26,7 @@ class Led:
         self.canvas.bind("<Button-1>", self.callback)
         '''
 
+    '''
     def convertPngToJpeg():
         self.image = Image.open("png/rsz_green-led-on-th.png","r")
         self.bg = Image.new('RGB', (25,25), (0,0,0))
@@ -33,6 +34,7 @@ class Led:
         self.text_img.paste(self.bg, (0,0))
         self.text_img.paste(self.image, (0,0), mask=self.image)       
         self.text_img.save("jpg/rsz_green-led-on-th.jpg", format="png")
+    '''
 
     def callback(self, event):
         logger.info("callback led")
@@ -52,7 +54,6 @@ class Led:
             raise Exception('Unknow led state')
 
     def setWidget(self, widget):
-        print(str(widget))
         self.widget = widget
 
     def hide(self):
