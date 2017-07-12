@@ -8,25 +8,21 @@ class GenericFeature:
     STATE_ON = "ON"
     STATE_OFF = "OFF"
     
-    def __new__(cls, module):
-        print("Appel de la methode __new__ de la classe")
-        #module_name = "Test"
-        #class_name = "Test"
-        print(module)
-        imported = __import__(module)
-        my_class = getattr(imported, module)
-        #print(my_class)
+    def __new__(cls, parent, feature, led):
+        module = __import__(feature)
+        my_class = getattr(module, feature)
         return object.__new__(my_class)
         #instance = my_class()
         #print("Type:" + str(type(instance)))
     
-    def __init__(self, module):
+    def __init__(self, parent, feature, led):
+        self.parent = parent
         self.state = GenericFeature.STATE_OFF
-        self.led = ''
-        self.indicator = ''
+        self.led = led
+        self.led.label.bind("<Button-1>", self.start)
 
-    def start(self):
-        logger.warning("Call to method from generic class. Not implemented for the required feature.")
+    def start(self, event):
+        print("Call to method from generic class. Not implemented for the required feature.")
     
     def stop(self):
-        logger.warning("Call to method from generic class. Not implemented for the required feature.")
+        print("Call to method from generic class. Not implemented for the required feature.")

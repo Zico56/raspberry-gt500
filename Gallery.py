@@ -1,16 +1,19 @@
 import logging
 from tkinter import *
 from PIL import Image, ImageTk
+from GenericFeature import *
 
 logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
 logger = logging.getLogger('Gallery')
 
-class Gallery:
+class Gallery(GenericFeature):
 
     imageLeft = Image.open("jpg/left_off.jpg")
     imageRight = Image.open("jpg/right_off.jpg")    
-    
-    def __init__(self, parent):
+
+    def __init__(self, parent, feature, led):
+        super().__init__(parent, feature, led)
+
         self.panel = PanedWindow(parent, orient=HORIZONTAL, bg="black")
 
         imgLeft = ImageTk.PhotoImage(self.imageLeft)
@@ -33,6 +36,12 @@ class Gallery:
         
         self.panel.bind("<Key>", self.callback)
         self.panel.bind("<KeyRelease>", self.callback)
+
+    def start(self, event):
+        self.led.changeColor()
+        self.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
+        self.panel.focus_set()
+        
 
     def callback(self, event):
         if (event.type == "2"):

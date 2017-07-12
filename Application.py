@@ -18,12 +18,6 @@ config.read('config.properties')
 logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
 logger = logging.getLogger('Application')
 
-####### for test 
-feature = GenericFeature("Test")
-print(str(type(feature)))
-feature.start()
-#######
-
 fenetre = Tk()
 
 #Window without title and border
@@ -45,18 +39,27 @@ canvas = Canvas(width=350, height=200, bg="black", highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
-gallery = Gallery(fenetre)
-gallery.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
-gallery.panel.focus_set()
+#gallery = Gallery(fenetre)
+#gallery.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
+#gallery.panel.focus_set()
 
 frame = Frame(bg="black", bd=0)
 
+####### for test 
+#feature = GenericFeature("Test")
+#print(str(type(feature)))
+#feature.start()
+#######
+
 indicatorList = config.items("INDICATOR_PATH")
+featureList = config.items("FEATURE_MODULE")
 gridNumberOfColumns = len(indicatorList)
 for x in range(0, gridNumberOfColumns):
 
     led = Led(frame)
     led.label.grid(row=0, column=x)
+
+    feature = GenericFeature(fenetre, featureList[x][1], led)
     
     imgIndic = PhotoImage(file=indicatorList[x][1])
     indicator = Label(frame, image=imgIndic, bg="black")

@@ -12,11 +12,10 @@ class Led:
 
     def __init__(self, parent):
         self.state = "OFF"
-        
         self.img = ImageTk.PhotoImage(self.imageOff)
         self.label = Label(parent, image=self.img, bg="black")
         self.label.image = self.img
-        self.label.bind("<Button-1>", self.callback)
+        #self.label.bind("<Button-1>", self.callback)
         
         '''
         self.image = Image.open("gif/rsz_red-led-off-th.gif")
@@ -27,19 +26,10 @@ class Led:
         '''
 
     '''
-    def convertPngToJpeg():
-        self.image = Image.open("png/rsz_green-led-on-th.png","r")
-        self.bg = Image.new('RGB', (25,25), (0,0,0))
-        self.text_img = Image.new('RGBA', (25,25), (0, 0, 0, 0))
-        self.text_img.paste(self.bg, (0,0))
-        self.text_img.paste(self.image, (0,0), mask=self.image)       
-        self.text_img.save("jpg/rsz_green-led-on-th.jpg", format="png")
-    '''
-
     def callback(self, event):
         logger.info("callback led")
         self.changeColor()
-        #self.hide()
+    '''
 
     def changeColor(self):
         if ( self.state == "OFF"):
@@ -54,9 +44,14 @@ class Led:
             raise Exception('Unknow led state')
 
     '''
+    def convertPngToJpeg():
+        self.image = Image.open("png/rsz_green-led-on-th.png","r")
+        self.bg = Image.new('RGB', (25,25), (0,0,0))
+        self.text_img = Image.new('RGBA', (25,25), (0, 0, 0, 0))
+        self.text_img.paste(self.bg, (0,0))
+        self.text_img.paste(self.image, (0,0), mask=self.image)       
+        self.text_img.save("jpg/rsz_green-led-on-th.jpg", format="png")
+    
     def setWidget(self, widget):
         self.widget = widget
-
-    def hide(self):
-        self.widget.place_forget()
     '''
