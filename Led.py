@@ -39,7 +39,7 @@ class Led:
     def callback(self, event):
         logger.info("callback led")
         self.changeColor()
-        self.hide()
+        #self.hide()
 
     def changeColor(self):
         if ( self.state == "OFF"):
@@ -53,8 +53,10 @@ class Led:
         else:
             raise Exception('Unknow led state')
 
+    '''
     def setWidget(self, widget):
         self.widget = widget
 
     def hide(self):
         self.widget.place_forget()
+    '''

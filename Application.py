@@ -5,12 +5,24 @@ from Led import Led
 from Gallery import Gallery
 import GPIO
 from GPIO import App
+import GenericFeature
+from GenericFeature import *
+import configparser
 
+config = configparser.RawConfigParser() #https://docs.python.org/2/library/configparser.html
+config.read('config.properties')
+
+####### LOGGER #######
+# TODO
+#logLevel = config.get('LOGGING', 'log.level')
 logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
 logger = logging.getLogger('Application')
 
-left = ''
-right = ''
+####### for test 
+feature = GenericFeature("Test")
+print(str(type(feature)))
+feature.start()
+#######
 
 fenetre = Tk()
 
@@ -18,15 +30,6 @@ fenetre = Tk()
 #fenetre.overrideredirect(1)
 
 fenetre.wm_title("Rasperry GT500")
-
-gridNumberOfColumns = 5
-ledTab = []
-indicatorImgList = [
-    "gif/rsz_voyant_phare1_off.gif",
-    "gif/rsz_voyant_phare2_off.gif",
-    "gif/rsz_voyant_phare3_off.gif",
-    "gif/rsz_voyant_warning_off.gif",
-    "gif/rsz_voyant_moteur_off.gif"]
 
 def createImage(imgPath):
     image = Image.open(imgPath)
@@ -48,17 +51,14 @@ gallery.panel.focus_set()
 
 frame = Frame(bg="black", bd=0)
 
+indicatorList = config.items("INDICATOR_PATH")
+gridNumberOfColumns = len(indicatorList)
 for x in range(0, gridNumberOfColumns):
-    #logging.info("We're on time %d" % (x))
+
     led = Led(frame)
-    led.setWidget(gallery.panel)
-    ledTab.append(led)
-    
-    #led.label.bind("<Button-1>", callbackMethodList[x])
     led.label.grid(row=0, column=x)
     
-    #logging.info("img: " + indicatorImgList[x])
-    imgIndic = PhotoImage(file=indicatorImgList[x])
+    imgIndic = PhotoImage(file=indicatorList[x][1])
     indicator = Label(frame, image=imgIndic, bg="black")
     indicator.image = imgIndic
     indicator.grid(row=1, column=x)
@@ -72,7 +72,7 @@ verticalPW.pack()
 
 fenetre.geometry('%dx%d+%d+%d' % (350, 295, 0, 0))
 
-App()
+#App()
 
 fenetre.mainloop()
 
