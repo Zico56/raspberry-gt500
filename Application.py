@@ -18,19 +18,14 @@ config.read('config.properties')
 logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
 logger = logging.getLogger('Application')
 
-fenetre = Tk()
-
-#Window without title and border
-#fenetre.overrideredirect(1)
-
-fenetre.wm_title("Rasperry GT500")
-
 def createImage(imgPath):
     image = Image.open(imgPath)
     photoImage = ImageTk.PhotoImage(image)
     return photoImage
 
-#---------------------------------------------------------------------------------
+fenetre = Tk()
+fenetre.wm_title("Rasperry GT500")
+#fenetre.overrideredirect(1) # ==> Window without title and border
 
 verticalPW = PanedWindow(fenetre, orient=VERTICAL, bg="black")
 
@@ -39,17 +34,7 @@ canvas = Canvas(width=350, height=200, bg="black", highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
-#gallery = Gallery(fenetre)
-#gallery.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
-#gallery.panel.focus_set()
-
 frame = Frame(bg="black", bd=0)
-
-####### for test 
-#feature = GenericFeature("Test")
-#print(str(type(feature)))
-#feature.start()
-#######
 
 indicatorList = config.items("INDICATOR_PATH")
 featureList = config.items("FEATURE_MODULE")
