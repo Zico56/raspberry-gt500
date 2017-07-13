@@ -13,8 +13,22 @@ class Gallery(GenericFeature):
 
     def __init__(self, parent, feature, led):
         super().__init__(parent, feature, led)
+        self.parent = parent
+        self.createGalleryPanel()
 
-        self.panel = PanedWindow(parent, orient=HORIZONTAL, bg="black")
+    # Overrided methods   
+    def start(self):
+        self.led.swithOn()
+        self.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
+        self.panel.focus_set()
+        
+    def stop(self):
+        self.led.swithOff()
+        self.panel.place_forget()
+
+    # Class methods
+    def createGalleryPanel(self):
+        self.panel = PanedWindow(self.parent, orient=HORIZONTAL, bg="black")
 
         imgLeft = ImageTk.PhotoImage(self.imageLeft)
         self.labelLeft = Label(self.panel, image=imgLeft, bg="black")
@@ -36,13 +50,7 @@ class Gallery(GenericFeature):
         
         self.panel.bind("<Key>", self.callback)
         self.panel.bind("<KeyRelease>", self.callback)
-
-    def start(self, event):
-        self.led.changeColor()
-        self.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
-        self.panel.focus_set()
         
-
     def callback(self, event):
         if (event.type == "2"):
             if (event.keysym == "Left"):

@@ -61,6 +61,9 @@ for x in range(0, gridNumberOfColumns):
 
     feature = GenericFeature(fenetre, featureList[x][1], led)
     
+    # for testing mode
+    feature.setLedEventBinding()
+    
     imgIndic = PhotoImage(file=indicatorList[x][1])
     indicator = Label(frame, image=imgIndic, bg="black")
     indicator.image = imgIndic
@@ -75,6 +78,7 @@ verticalPW.pack()
 
 fenetre.geometry('%dx%d+%d+%d' % (350, 295, 0, 0))
 
+# for testing mode
 #App()
 
 fenetre.mainloop()

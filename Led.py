@@ -9,14 +9,15 @@ class Led:
 
     imageOff = Image.open("jpg/rsz_red-led-off-th.jpg")
     imageOn = Image.open("jpg/rsz_red-led-on-th.jpg")
+    
+    STATE_ON = "ON"
+    STATE_OFF = "OFF"
 
     def __init__(self, parent):
-        self.state = "OFF"
-        self.img = ImageTk.PhotoImage(self.imageOff)
+        self.state = Led.STATE_OFF
+        self.img = ImageTk.PhotoImage(Led.imageOff)
         self.label = Label(parent, image=self.img, bg="black")
-        self.label.image = self.img
-        #self.label.bind("<Button-1>", self.callback)
-        
+        self.label.image = self.img        
         '''
         self.image = Image.open("gif/rsz_red-led-off-th.gif")
         self.photoImage = ImageTk.PhotoImage(self.image)
@@ -24,34 +25,26 @@ class Led:
         self.canvas.create_image(0, 0, anchor=NW, image=self.photoImage)
         self.canvas.bind("<Button-1>", self.callback)
         '''
+        
+    def swithOn(self):
+        self.img = ImageTk.PhotoImage(Led.imageOn)
+        self.label.configure(image=self.img)
+        self.state = Led.STATE_ON
+        
+    def swithOff(self):
+        self.img = ImageTk.PhotoImage(Led.imageOff)
+        self.label.configure(image=self.img)
+        self.state = Led.STATE_OFF
 
-    '''
-    def callback(self, event):
-        logger.info("callback led")
-        self.changeColor()
-    '''
-
+    # deprecated: use swithOn/swithOff methods instead
     def changeColor(self):
         if ( self.state == "OFF"):
-            self.img = ImageTk.PhotoImage(self.imageOn)
+            self.img = ImageTk.PhotoImage(Led.imageOn)
             self.label.configure(image=self.img)
             self.state = "ON"
         elif ( self.state == "ON"):
-            self.img = ImageTk.PhotoImage(self.imageOff)
+            self.img = ImageTk.PhotoImage(Led.imageOff)
             self.label.configure(image=self.img)
             self.state = "OFF"
         else:
             raise Exception('Unknow led state')
-
-    '''
-    def convertPngToJpeg():
-        self.image = Image.open("png/rsz_green-led-on-th.png","r")
-        self.bg = Image.new('RGB', (25,25), (0,0,0))
-        self.text_img = Image.new('RGBA', (25,25), (0, 0, 0, 0))
-        self.text_img.paste(self.bg, (0,0))
-        self.text_img.paste(self.image, (0,0), mask=self.image)       
-        self.text_img.save("jpg/rsz_green-led-on-th.jpg", format="png")
-    
-    def setWidget(self, widget):
-        self.widget = widget
-    '''
