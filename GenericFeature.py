@@ -22,6 +22,7 @@ class GenericFeature:
     # Methods that will be inherited by child classes
     def setGpioEventBinding(self):
         logger.warning("GPIO Event: Not implemented yet.")
+        GPIO.add_event_detect(channel, GPIO.FALLING, callback=self.processEvent)
     
     def setLedEventBinding(self):
         self.led.label.bind("<Button-1>", self.processEvent)

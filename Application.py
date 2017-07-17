@@ -1,4 +1,3 @@
-import logging
 from tkinter import *
 from PIL import Image, ImageTk
 from Led import Led
@@ -8,15 +7,16 @@ from GPIO import App
 import GenericFeature
 from GenericFeature import *
 import configparser
+import Logger
 
-config = configparser.RawConfigParser() #https://docs.python.org/2/library/configparser.html
+####### CONFIG #######
+config = configparser.RawConfigParser()
 config.read('config.properties')
 
-####### LOGGER #######
-# TODO
-#logLevel = config.get('LOGGING', 'log.level')
-logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
-logger = logging.getLogger('Application')
+#Logger.log()
+
+####### TEST MODE #######
+isTestMode = config.getboolean('TESTING', 'gpio.emulator')
 
 def createImage(imgPath):
     image = Image.open(imgPath)
@@ -64,7 +64,8 @@ verticalPW.pack()
 fenetre.geometry('%dx%d+%d+%d' % (350, 295, 0, 0))
 
 # for testing mode
-#App()
+if(isTestMode):
+    App()
 
 fenetre.mainloop()
 
