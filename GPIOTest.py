@@ -1,3 +1,5 @@
+import time
+from TypeChecker import typeassert
 from tkinter import *
 import tkinter as tk
 
@@ -6,6 +8,53 @@ dictionaryPinsTkinter = {}
 
 GPIONames=["14","15","18","23","24","25","8","7","12","16","20","21","2","3","4","17","27","22","10","9","11","5","6","13","19","26"]
 
+'''
+def drawGPIOOut(gpioID):
+    global dictionaryPins
+    global dictionaryPinsTkinter
+
+    gpioID = str(gpioID)
+    objPin = dictionaryPins[gpioID]
+    objBtn = dictionaryPinsTkinter[gpioID]   
+
+    if(objPin.SetMode == "OUT"):
+        objBtn["text"] = "GPIO" + str(gpioID) + "\nOUT=" + str(objPin.Out)
+        if(str(objPin.Out) == "1"):
+            objBtn.configure(background='tan2')
+            objBtn.configure(activebackground='tan2')
+        else:
+            objBtn.configure(background='DarkOliveGreen3')
+            objBtn.configure(activebackground='DarkOliveGreen3')
+'''
+
+'''
+def toggleButton(gpioID):
+    objBtn = dictionaryPinsTkinter[str(gpioID)]
+    objPin = dictionaryPins[str(gpioID)]
+    
+    if(objPin.In == "1"):
+        objPin.In = "0"
+    elif(objPin.In == "0"):
+        objPin.In = "1"
+        
+    objBtn["text"] = "GPIO" + str(gpioID) + "\nIN=" + str(objPin.In)
+        
+def buttonClick(self):
+    gpioID = (self.widget.config('command')[-1])
+    toggleButton(gpioID)
+'''
+ 
+def drawGPIOIn(gpioID,In):
+    global dictionaryPinsTkinter
+    objBtn = dictionaryPinsTkinter[gpioID]
+    objBtn.configure(background='gainsboro')
+    objBtn.configure(activebackground='gainsboro')
+    objBtn.configure(relief='raised')
+    objBtn.configure(bd="1px")
+    objBtn["text"] = "GPIO" + str(gpioID) + "\nIN=" + str(In)
+    #objBtn.bind("<Button-1>", buttonClick)
+    #objBtn.bind("<ButtonRelease-1>", buttonClickRelease)
+			
 class App():
 
     def __init__(self):
@@ -27,7 +76,7 @@ class App():
     '''
 
     def initGrid(self):	
-			
+        global dictionaryPinsTkinter
         ########### First row ###########    
             
         #5V
@@ -43,14 +92,14 @@ class App():
         pin6label.grid(row=0, column=2, padx=(10, 10))
         
         #GPIO14
-        pin8btn = Button(self.root, text="GPIO14\nOUT=0", command="14", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
+        pin8btn = Button(self.root, text="GPIO14\nOUT=0", command="14", padx ="1px", pady="1px", bd="1px", fg="blue", activeforeground="blue")
         pin8btn.grid(row=0, column=3, padx=(10, 10),pady=(5,5))
         dictionaryPinsTkinter["14"] = pin8btn
 
         #GPIO15
         pin10btn = Button(self.root, text="GPIO15\nOUT=0", command="15", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
         pin10btn.grid(row=0, column=4, padx=(10, 10))
-        dictionaryPinsTkinter["15"] =pin10btn
+        dictionaryPinsTkinter["15"] = pin10btn
  
         #GPIO18
         pin12btn = Button(self.root, text="GPIO18\nOUT=0", command="18",  padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
@@ -217,4 +266,154 @@ class App():
         #GND
         pin39label = Label(self.root, text="GND", fg="black")
         pin39label.grid(row=1, column=19, padx=(10, 10))
+
+class PIN():
+    mode = "None" #IN/OUT/NONE
+    stateOut = "0"
+    #pull_up_down = "PUD_OFF" #PUD_UP/PUD_DOWN/PUD_OFF
+    In = "1"
+
+    def __init__(self, mode):
+        self.mode = mode
+        self.stateOut = "0"
+		
+class GPIO:
+
+    #constants
+    LOW = 0 
+    HIGH = 1
+    OUT = 2
+    IN = 3
+    PUD_OFF = 4
+    PUD_DOWN = 5
+    PUD_UP = 6
+    BCM = 7
+
+    RISING=1
+    FALLING=-1
+    BOTH=0
+    
+    #flags
+    setModeDone = False
+    
+    #Extra functions
+    '''
+    def checkModeValidator():
+        if(GPIO.setModeDone == False):
+            raise Exception('Setup your GPIO mode. Must be set to BCM')
+    '''
+    
+    #GPIO LIBRARY Functions
+    #@typeassert(int)
+    def setmode(mode):
+        #time.sleep(1)
+        if(mode == GPIO.BCM):
+            GPIO.setModeDone = True
+        else:
+            GPIO.setModeDone = False
+
+    #@typeassert(bool)
+    def setwarnings(flag):
+        print("Test mode. Warning flag not implemented")
+        pass
+
+    #@typeassert(int,int,int,int)        
+    def setup(channel, state, initial=-1, pull_up_down=-1):
+        global dictionaryPins
         
+        #GPIO.checkModeValidator()
+
+		#check if provided channel exists		
+        if str(channel) not in GPIONames:
+            raise Exception('GPIO ' + str(channel) + ' does not exist')
+
+        #check if channel is already setup
+        if str(channel) in dictionaryPins:
+            raise Exception('GPIO is already setup')
+
+		#Set GPIO pin as an output (default OUT 0)
+        if(state == GPIO.OUT):
+            objTemp = PIN("OUT")
+            if(initial == GPIO.HIGH):
+                objTemp.Out = "1"
+                
+            dictionaryPins[str(channel)] = objTemp
+            drawGPIOOut(channel)
+            
+		#Set GPIO pin as an input
+        elif(state == GPIO.IN):
+            objTemp = PIN("IN")
+            objTemp.In = "0"
+            '''
+            if(pull_up_down == -1) or (pull_up_down == GPIO.PUD_DOWN):
+                objTemp.pull_up_down = "PUD_DOWN"
+                objTemp.In = "0"
+            elif(pull_up_down == GPIO.PUD_UP):
+                objTemp.pull_up_down = "PUD_UP"
+                objTemp.In = "1"
+            '''
+            
+            dictionaryPins[str(channel)] = objTemp
+            drawGPIOIn(str(channel), objTemp.In)
+            
+    #@typeassert(int,int)
+    '''
+    def output(channel, outmode):
+        global dictionaryPins
+        channel = str(channel)
+        
+        GPIO.checkModeValidator()
+
+        if channel not in dictionaryPins:
+            #if channel is not setup
+            raise Exception('GPIO must be setup before used')
+        else:
+            objPin = dictionaryPins[channel]
+            if(objPin.SetMode == "IN"):
+                #if channel is setup as IN and used as an OUTPUT
+                raise Exception('GPIO must be setup as OUT')
+
+        
+        if(outmode != GPIO.LOW and outmode != GPIO.HIGH):
+            raise Exception('Output must be set to HIGH/LOW')
+            
+        objPin = dictionaryPins[channel]
+        if(outmode == GPIO.LOW):
+            objPin.Out = "0"
+        elif(outmode == GPIO.HIGH):
+            objPin.Out = "1"
+        
+        drawGPIOOut(channel)
+    '''
+
+    #@typeassert(int)
+    '''
+    def input(channel):
+        global dictionaryPins
+        channel = str(channel)
+
+        GPIO.checkModeValidator()
+
+        if channel not in dictionaryPins:
+            #if channel is not setup
+            raise Exception('GPIO must be setup before used')
+        else:
+            objPin = dictionaryPins[channel]
+            if(objPin.SetMode == "OUT"):
+                #if channel is setup as OUTPUT and used as an INPUT
+                raise Exception('GPIO must be setup as IN')
+
+        objPin = dictionaryPins[channel]
+        if(objPin.In == "1"):
+            return True
+        elif(objPin.Out == "0"):
+            return False
+    '''
+	
+    def cleanup():
+        pass
+        
+    def add_event_detect(channel, edge, callback, bouncetime):
+        global dictionaryPinsTkinter
+        objBtn = dictionaryPinsTkinter[str(channel)]
+        objBtn.bind("<Button-1>", callback)

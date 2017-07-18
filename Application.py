@@ -2,8 +2,8 @@ from tkinter import *
 from PIL import Image, ImageTk
 from Led import Led
 from Gallery import Gallery
-import GPIO
-from GPIO import App
+import GPIOTest
+from GPIOTest import App
 import GenericFeature
 from GenericFeature import *
 import configparser
@@ -26,6 +26,10 @@ def createImage(imgPath):
 fenetre = Tk()
 fenetre.wm_title("Rasperry GT500")
 #fenetre.overrideredirect(1) # ==> Window without title and border
+
+# for testing mode
+if(isTestMode):
+    App()
 
 verticalPW = PanedWindow(fenetre, orient=VERTICAL, bg="black")
 
@@ -62,10 +66,6 @@ verticalPW.add(frame)
 verticalPW.pack()
 
 fenetre.geometry('%dx%d+%d+%d' % (350, 295, 0, 0))
-
-# for testing mode
-if(isTestMode):
-    App()
 
 fenetre.mainloop()
 
