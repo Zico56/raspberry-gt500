@@ -6,7 +6,7 @@ import tkinter as tk
 dictionaryPins = {}
 dictionaryPinsTkinter = {}
 
-GPIONames=["14","15","18","23","24","25","8","7","12","16","20","21","2","3","4","17","27","22","10","9","11","5","6","13","19","26"]
+GPIONames=["14","15","18","23","24","25","8","7","2","3","4","17","27","22","10","9","11"]
 
 '''
 def drawGPIOOut(gpioID):
@@ -61,7 +61,7 @@ class App():
         self.root = Toplevel()
         
         self.root.wm_title("GPIO EMULATOR")
-        self.root.geometry('%dx%d+%d+%d' % (1300, 100, 0, 0))
+        #self.root.geometry('%dx%d+%d+%d' % (1300, 100, 0, 0))
         
         self.initGrid()
         
@@ -69,11 +69,6 @@ class App():
         pin2label.grid(row=0, column=0, padx=(10, 10))
         
         Label(self.root, text="this is window")
-
-    '''
-    def callback(self):
-        self.root.quit()
-    '''
 
     def initGrid(self):	
         global dictionaryPinsTkinter
@@ -139,38 +134,6 @@ class App():
         pin26btn.grid(row=0, column=12, padx=(10, 10))
         dictionaryPinsTkinter["7"] = pin26btn
 
-        #ID_SC
-        pin28label = Label(self.root, text="ID_SC", fg="black")
-        pin28label.grid(row=0, column=13, padx=(10, 10))
-
-        #GND
-        pin30label = Label(self.root, text="GND", fg="black")
-        pin30label.grid(row=0, column=14, padx=(10, 10))
-
-        #GPIO12
-        pin32btn = Button(self.root, text="GPIO12\nOUT=0", command="12", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin32btn.grid(row=0, column=15, padx=(10, 10))
-        dictionaryPinsTkinter["12"] = pin32btn
-
-        #GND
-        pin34label = Label(self.root, text="GND", fg="black")
-        pin34label.grid(row=0, column=16, padx=(10, 10))
-
-        #GPIO16
-        pin36btn = Button(self.root, text="GPIO16\nOUT=0", command="16",  padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin36btn.grid(row=0, column=17, padx=(10, 10))
-        dictionaryPinsTkinter["16"] = pin36btn
-
-        #GPIO20
-        pin38btn = Button(self.root, text="GPIO20\nOUT=0", command="20", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin38btn.grid(row=0, column=18, padx=(10, 10))
-        dictionaryPinsTkinter["20"] = pin38btn
-        
-        #GPIO21
-        pin40btn = Button(self.root, text="GPIO21\nOUT=0", command="21", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin40btn.grid(row=0, column=19, padx=(10, 10))
-        dictionaryPinsTkinter["21"] = pin40btn
-
         ########### Second row
         
         #3V3
@@ -233,39 +196,6 @@ class App():
         #GND
         pin25label = Label(self.root, text="GND", fg="black")
         pin25label.grid(row=1, column=12, padx=(10, 10))
-
-        #ID_SD
-        pin27label = Label(self.root, text="ID_SD", fg="black")
-        pin27label.grid(row=1, column=13, padx=(10, 10))
-
-        #GPIO05
-        pin29btn = Button(self.root, text="GPIO5\nOUT=0", command="5", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin29btn.grid(row=1, column=14, padx=(10, 10))
-        dictionaryPinsTkinter["5"] = pin29btn
-
-        #GPIO06
-        pin31btn = Button(self.root, text="GPIO6\nOUT=0", command="6", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin31btn.grid(row=1, column=15, padx=(10, 10))
-        dictionaryPinsTkinter["6"]=pin31btn
-
-        #GPIO13
-        pin33btn = Button(self.root, text="GPIO13\nOUT=0", command="13", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin33btn.grid(row=1, column=16, padx=(10, 10))
-        dictionaryPinsTkinter["13"] = pin33btn
-
-        #GPIO19
-        pin35btn = Button(self.root, text="GPIO19\nOUT=0", command="19", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin35btn.grid(row=1, column=17, padx=(10, 10))
-        dictionaryPinsTkinter["19"] = pin35btn   
-            
-        #GPIO26
-        pin37btn = Button(self.root, text="GPIO26\nOUT=0", command="26", padx ="1px", pady="1px", bd="0px", fg="blue", relief="sunken", activeforeground="blue")
-        pin37btn.grid(row=1, column=18, padx=(10, 10))
-        dictionaryPinsTkinter["26"] = pin37btn
-
-        #GND
-        pin39label = Label(self.root, text="GND", fg="black")
-        pin39label.grid(row=1, column=19, padx=(10, 10))
 
 class PIN():
     mode = "None" #IN/OUT/NONE
