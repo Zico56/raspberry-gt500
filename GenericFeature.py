@@ -1,11 +1,16 @@
 import logging
 from Configuration import config
 
+################# Raspberry / Emulator mode #################
 isTestMode = config.getboolean('TESTING', 'gpio.emulator')
 if(isTestMode):
     from GPIOTest import GPIO
 else:
     from RPi import GPIO
+#############################################################
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 class GenericFeature:
 
@@ -26,19 +31,26 @@ class GenericFeature:
     def processEvent(self, event):
         if (self.state == GenericFeature.STATE_OFF):
             self.start()
+            self.led.swithOn()
             self.state = GenericFeature.STATE_ON
         elif (self.state == GenericFeature.STATE_ON):
             self.stop()
+            self.led.swithOff() 
             self.state = GenericFeature.STATE_OFF
         else:
             raise Exception('Unknow feature state: ' + self.state)
         
-    # Methods that will be overrided by child classes
     def setBinding(self, **args):
-        logging.warning("Call to method 'setBinding' from generic class. Not implemented for the required feature.")
-    
+        #logging.warning("Call to method 'setBinding' from generic class. Not implemented for the required feature.")
+        channel = args["channel"]
+        logging.debug("Configuring GPIO_" + str(channel) + "as input")
+        GPIO.setup(channel, GPIO.IN)
+        GPIO.add_event_detect(channel, GPIO.RISING, callback=self.processEvent, bouncetime=75)
+
+    # Methods that will be overrided by child classes    
     def start(self):
         logging.warning("Call to method 'start' from generic class. Not implemented for the required feature.")
     
     def stop(self):
         logging.warning("Call to method 'stop' from generic class. Not implemented for the required feature.")
+       
