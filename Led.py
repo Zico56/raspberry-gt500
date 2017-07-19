@@ -1,3 +1,4 @@
+import logging
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
 

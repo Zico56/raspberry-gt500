@@ -424,10 +424,8 @@ class GPIO:
         global dictionaryPinsTkinter
         objBtn = dictionaryPinsTkinter[str(channel)]
         
-        if (callback == GPIO.RISING) or (callback == GPIO.BOTH):
+        if (edge == GPIO.RISING) or (edge == GPIO.BOTH):
             objBtn.bind("<Button-1>", callback)
-            pass
 
-        if (callback == GPIO.FALLING) or (callback == GPIO.BOTH):
+        if (edge == GPIO.FALLING) or (edge == GPIO.BOTH):
             objBtn.bind("<ButtonRelease-1>", callback)
-            pass

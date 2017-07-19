@@ -18,12 +18,10 @@ class Gallery(GenericFeature):
 
     # Overrided methods   
     def start(self):
-        self.led.swithOn()
         self.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
         self.panel.focus_set()
         
     def stop(self):
-        self.led.swithOff()
         self.panel.place_forget()
 
     # Class methods
