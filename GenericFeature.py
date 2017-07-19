@@ -1,7 +1,11 @@
 import logging
+from Configuration import config
 
-logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.DEBUG)
-logger = logging.getLogger('GenericFeature')
+isTestMode = config.getboolean('TESTING', 'gpio.emulator')
+if(isTestMode):
+    from GPIOTest import GPIO
+else:
+    from RPi import GPIO
 
 class GenericFeature:
 
@@ -12,21 +16,13 @@ class GenericFeature:
         module = __import__(feature)
         my_class = getattr(module, feature)
         return object.__new__(my_class)
-        #instance = my_class()
     
     def __init__(self, parent, feature, led):
         self.parent = parent
         self.state = GenericFeature.STATE_OFF
         self.led = led
         
-    # Methods that will be inherited by child classes
-    def setGpioEventBinding(self):
-        logger.warning("GPIO Event: Not implemented yet.")
-        #GPIO.add_event_detect(channel, GPIO.FALLING, callback=self.processEvent)
-    
-    def setLedEventBinding(self):
-        self.led.label.bind("<Button-1>", self.processEvent)
-        
+    # Methods that will be inherited by child classes    
     def processEvent(self, event):
         if (self.state == GenericFeature.STATE_OFF):
             self.start()
@@ -38,8 +34,11 @@ class GenericFeature:
             raise Exception('Unknow feature state: ' + self.state)
         
     # Methods that will be overrided by child classes
+    def setBinding(self, **args):
+        logging.warning("Call to method 'setBinding' from generic class. Not implemented for the required feature.")
+    
     def start(self):
-        logger.warning("Call to method 'start' from generic class. Not implemented for the required feature.")
+        logging.warning("Call to method 'start' from generic class. Not implemented for the required feature.")
     
     def stop(self):
-        logger.warning("Call to method 'stop' from generic class. Not implemented for the required feature.")
+        logging.warning("Call to method 'stop' from generic class. Not implemented for the required feature.")

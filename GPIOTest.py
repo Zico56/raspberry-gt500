@@ -1,16 +1,14 @@
+import logging
 import time
-from TypeChecker import typeassert
 from tkinter import *
 import tkinter as tk
-
-import configparser
-config = configparser.RawConfigParser()
-config.read('config.properties')
-isExtendedGpio = config.getboolean('TESTING', 'gpio.extended')
+from TypeChecker import typeassert
+from Configuration import config
 
 dictionaryPins = {}
 dictionaryPinsTkinter = {}
 
+isExtendedGpio = config.getboolean('TESTING', 'gpio.extended')
 if (isExtendedGpio):
     GPIONames=["14","15","18","23","24","25","8","7","12","16","20","21","2","3","4","17","27","22","10","9","11","5","6","13","19","26"]
 else:
@@ -319,8 +317,7 @@ class GPIO:
 
     #@typeassert(bool)
     def setwarnings(flag):
-        print("Test mode. Warning flag not implemented")
-        pass
+        logging.warning("Test mode. Warning flag not implemented")
 
     #@typeassert(int,int,int,int)        
     def setup(channel, state, initial=-1, pull_up_down=-1):

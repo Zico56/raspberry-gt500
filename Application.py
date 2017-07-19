@@ -1,22 +1,17 @@
 from tkinter import *
 from PIL import Image, ImageTk
+
+################# CONFIG #################
+import logging
+import logging.config
+logging.config.fileConfig('logging.conf')
+
+from Configuration import config
+##########################################
+
 from Led import Led
-from Gallery import Gallery
-import GPIOTest
 from GPIOTest import App
-import GenericFeature
 from GenericFeature import *
-import configparser
-import Logger
-
-####### CONFIG #######
-config = configparser.RawConfigParser()
-config.read('config.properties')
-
-#Logger.log()
-
-####### TEST MODE #######
-isTestMode = config.getboolean('TESTING', 'gpio.emulator')
 
 def createImage(imgPath):
     image = Image.open(imgPath)
@@ -27,9 +22,12 @@ fenetre = Tk()
 fenetre.wm_title("Rasperry GT500")
 #fenetre.overrideredirect(1) # ==> Window without title and border
 
-# for testing mode
+######################## TEST MODE ########################
+isTestMode = config.getboolean('TESTING', 'gpio.emulator')
+logging.debug("Test mode: " + str(isTestMode))
 if(isTestMode):
     App()
+###########################################################
 
 verticalPW = PanedWindow(fenetre, orient=VERTICAL, bg="black")
 
@@ -50,8 +48,8 @@ for x in range(0, gridNumberOfColumns):
 
     feature = GenericFeature(fenetre, featureList[x][1], led)
     
-    # for testing mode
-    feature.setLedEventBinding()
+    channel = config.get('GPIO', 'GPIO_IN_'+str(x+1))
+    feature.setBinding(channel=channel)
     
     imgIndic = PhotoImage(file=indicatorList[x][1])
     indicator = Label(frame, image=imgIndic, bg="black")

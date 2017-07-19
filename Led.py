@@ -1,9 +1,5 @@
-import logging
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
-
-logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
-logger = logging.getLogger('Led')
 
 class Led:
 
