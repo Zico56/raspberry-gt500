@@ -48,6 +48,11 @@ def toggleButton(gpioID):
 def buttonClick(self):
     gpioID = (self.widget.config('command')[-1])
     toggleButton(gpioID)
+
+def buttonClickRelease(self):
+##    print("released")
+    gpioID = (self.widget.config('command')[-1])
+    toggleButton(gpioID)    
 '''
  
 def drawGPIOIn(gpioID,In):
@@ -325,7 +330,7 @@ class GPIO:
         
         #GPIO.checkModeValidator()
 
-		#check if provided channel exists		
+	#check if provided channel exists		
         if str(channel) not in GPIONames:
             raise Exception('GPIO ' + str(channel) + ' does not exist')
 
@@ -333,7 +338,7 @@ class GPIO:
         if str(channel) in dictionaryPins:
             raise Exception('GPIO is already setup')
 
-		#Set GPIO pin as an output (default OUT 0)
+	#Set GPIO pin as an output (default OUT 0)
         if(state == GPIO.OUT):
             objTemp = PIN("OUT")
             if(initial == GPIO.HIGH):
@@ -342,7 +347,7 @@ class GPIO:
             dictionaryPins[str(channel)] = objTemp
             drawGPIOOut(channel)
             
-		#Set GPIO pin as an input
+	#Set GPIO pin as an input
         elif(state == GPIO.IN):
             objTemp = PIN("IN")
             objTemp.In = "0"
@@ -418,4 +423,11 @@ class GPIO:
     def add_event_detect(channel, edge, callback, bouncetime):
         global dictionaryPinsTkinter
         objBtn = dictionaryPinsTkinter[str(channel)]
-        objBtn.bind("<Button-1>", callback)
+        
+        if (callback == GPIO.RISING) or (callback == GPIO.BOTH):
+            objBtn.bind("<Button-1>", callback)
+            pass
+
+        if (callback == GPIO.FALLING) or (callback == GPIO.BOTH):
+            objBtn.bind("<ButtonRelease-1>", callback)
+            pass
