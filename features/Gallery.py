@@ -1,10 +1,7 @@
-#import logging
+import logging
 from tkinter import *
 from PIL import Image, ImageTk
-from GenericFeature import *
-
-#logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.INFO)
-#logger = logging.getLogger('Gallery')
+from features.GenericFeature import *
 
 class Gallery(GenericFeature):
 

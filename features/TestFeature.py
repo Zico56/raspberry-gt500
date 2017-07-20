@@ -1,7 +1,7 @@
 import logging
-from GenericFeature import *
+from features.GenericFeature import *
 
-class Test(GenericFeature):
+class TestFeature(GenericFeature):
 
     def __init__(self, parent, feature, led):
         super().__init__(parent, feature, led)

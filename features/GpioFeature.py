@@ -1,10 +1,10 @@
 import logging
 from Configuration import config
-from GenericFeature import *
+from features.GenericFeature import *
 
 ################# Raspberry / Emulator mode #################
 if(testMode):
-    from GPIOTest import GPIO
+    from emulator.GPIOEmulator import GPIO
 else:
     from RPi import GPIO
 #############################################################

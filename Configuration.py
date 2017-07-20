@@ -8,7 +8,7 @@ def main():
     logging.info("Loading configuration file")
     global config
     config = configparser.RawConfigParser()
-    config.read('config.properties')
+    config.read('properties/config.properties')
     
     global testMode
     testMode = config.getboolean('TESTING', 'gpio.emulator')

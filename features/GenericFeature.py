@@ -1,9 +1,10 @@
 import logging
+from importlib import import_module
 from Configuration import testMode
 
 ################# Raspberry / Emulator mode #################
 if(testMode):
-    from GPIOTest import GPIO
+    from emulator.GPIOEmulator import GPIO
 else:
     from RPi import GPIO
 #############################################################
@@ -17,7 +18,7 @@ class GenericFeature:
     STATE_OFF = "OFF"
     
     def __new__(cls, parent, feature, led):
-        module = __import__(feature)
+        module = import_module('features.' + feature)
         my_class = getattr(module, feature)
         return object.__new__(my_class)
     

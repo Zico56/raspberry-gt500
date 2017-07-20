@@ -4,15 +4,15 @@ from PIL import Image, ImageTk
 ################# CONFIG #################
 import logging
 import logging.config
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig('properties/logging.properties')
 
 from Configuration import config
 from Configuration import testMode
 ##########################################
 
 from Led import Led
-from GPIOTest import App
-from GenericFeature import *
+from emulator.GPIOEmulator import App
+from features.GenericFeature import *
 
 def createImage(imgPath):
     image = Image.open(imgPath)
