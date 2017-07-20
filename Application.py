@@ -33,7 +33,7 @@ verticalPW = PanedWindow(fenetre, orient=VERTICAL, bg="black")
 
 canvas = Canvas(width=350, height=200, bg="black", highlightthickness=0)
 imgBg = createImage("png/shelby.png")
-#canvas.create_image(0, 0, anchor=NW, image=imgBg)
+canvas.create_image(0, 0, anchor=NW, image=imgBg)
 verticalPW.add(canvas)
 
 frame = Frame(bg="black", bd=0)

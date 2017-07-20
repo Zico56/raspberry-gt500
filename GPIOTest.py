@@ -50,7 +50,7 @@ def drawGPIOIn(gpioID):
     
     objBtn.configure(relief='raised')
     objBtn.configure(bd="1px")
-    objBtn["text"] = "GPIO" + str(gpioID) + "\nIN=" + str(objPin.In)
+    objBtn["text"] = "GPIO" + str(gpioID) + "\nIN=" + str(objPin.state)
 
 def drawGPIOOut(gpioID):
     global dictionaryPins
@@ -275,17 +275,17 @@ class App():
 
 class PIN():
     # Pin mode
-    IN = "1"
-    OUT = "0"
-    NONE = "-1"
+    IN = 1
+    OUT = 0
+    NONE = -1
     
     # Pin state
-    UP = "1"
-    DWN = "0"
+    UP = 1
+    DWN = 0
     
     #pull_up_down = "PUD_OFF" #PUD_UP/PUD_DOWN/PUD_OFF
 
-    def __init__(self, mode="0", state="0"):
+    def __init__(self, mode=0, state=0):
         if (mode != PIN.IN) and (mode != PIN.OUT) and (mode != PIN.NONE):
             raise Exception("Unknown pin mode: " + str(mode))
     
@@ -320,6 +320,18 @@ class GPIO:
         if(GPIO.setModeDone == False):
             raise Exception('Setup your GPIO mode. Must be set to BCM')
     '''
+    
+    def checkChannelSetUpAndMode(channel, mode):
+        channel = str(channel)
+        
+        global dictionaryPins
+        if channel not in dictionaryPins:
+            #if channel is not setup
+            raise Exception('GPIO' + channel + ' has not been setup.')
+            
+        objPin = dictionaryPins[channel]
+        if (objPin.mode != mode):
+            raise Exception('GPIO' + channel + ' setup as ' + str(objPin.mode) + '. Must be setup as: ' + str(mode))
     
     #GPIO LIBRARY Functions
     def setmode(mode):
@@ -358,7 +370,7 @@ class GPIO:
         #Set GPIO pin as an input
         elif(state == GPIO.IN):
             objTemp = PIN(mode=PIN.IN)
-            objTemp.In = "0"
+            #objTemp.In = "0"
             '''
             if(pull_up_down == -1) or (pull_up_down == GPIO.PUD_DOWN):
                 objTemp.pull_up_down = "PUD_DOWN"
@@ -372,22 +384,10 @@ class GPIO:
             drawGPIOIn(channel)
             
     def output(channel, outmode):
-        #logging.warning("Output() function not implemented yet")
-
         channel = str(channel)
-
+        GPIO.checkChannelSetUpAndMode(channel, PIN.OUT)
         #GPIO.checkModeValidator()
-        
-        global dictionaryPins
-        if channel not in dictionaryPins:
-            #if channel is not setup
-            raise Exception('GPIO' + channel + ' has not been set up.')
-
-        objPin = dictionaryPins[channel]
-        if(objPin.mode != PIN.OUT):
-            #if channel is setup as IN and used as an OUTPUT
-            raise Exception('GPIO' + channel + ' setup as ' + str(objPin.mode) + '. Must be set up as OUT: ' + str(PIN.OUT))
-        
+                
         if (outmode != GPIO.LOW and outmode != GPIO.HIGH):
             raise Exception('Output must be set to HIGH/LOW')
         
@@ -398,20 +398,10 @@ class GPIO:
         elif(outmode == GPIO.HIGH):
             objBtn.configure(background='DarkGreen')
 
-    def input(channel):
-        global dictionaryPins
+    def input(channel):        
         channel = str(channel)
-
-        #GPIO.checkModeValidator()
-
-        if channel not in dictionaryPins:
-            #if channel is not setup
-            raise Exception('GPIO' + channel + ' has not been setup.')
-
-        objPin = dictionaryPins[channel]
-        if (objPin.mode != PIN.IN):
-            #if channel is setup as OUTPUT and used as an INPUT
-            raise Exception('GPIO' + channel + ' setup as ' + str(objPin.mode) + '. Must be setup as IN: ' + str(PIN.IN))
+        #GPIO.checkModeValidator()        
+        GPIO.checkChannelSetUpAndMode(channel, PIN.IN)
 
         if (objPin.state == PIN.UP):
             return True
