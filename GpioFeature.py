@@ -9,7 +9,7 @@ else:
     from RPi import GPIO
 #############################################################
 
-class GpioExample(GenericFeature):
+class GpioFeature(GenericFeature):
 
     def __init__(self, parent, feature, led):
         super().__init__(parent, feature, led)
@@ -22,12 +22,10 @@ class GpioExample(GenericFeature):
         #print("channelOut: " + str(self.channelOut))
         
         logging.debug("Configuring GPIO_" + str(self.channelOut) + "as output")
-        #GPIO.setup(self.channelOut, GPIO.OUT)
+        GPIO.setup(self.channelOut, GPIO.OUT)
     
-    def start(self):  
-        pass
-        #GPIO.output(self.channelOut, GPIO.HIGH)
+    def start(self): 
+        GPIO.output(self.channelOut, GPIO.HIGH)
         
     def stop(self):
-        pass
-        #GPIO.output(self.channelOut, GPIO.LOW)
+        GPIO.output(self.channelOut, GPIO.LOW)
