@@ -1,9 +1,8 @@
 import logging
-from Configuration import config
+from Configuration import testMode
 
 ################# Raspberry / Emulator mode #################
-isTestMode = config.getboolean('TESTING', 'gpio.emulator')
-if(isTestMode):
+if(testMode):
     from GPIOTest import GPIO
 else:
     from RPi import GPIO
@@ -26,6 +25,9 @@ class GenericFeature:
         self.parent = parent
         self.state = GenericFeature.STATE_OFF
         self.led = led
+        self.feature = feature
+        if (testMode):
+            self.led.label.bind("<Button-1>", self.processEvent)
         
     # Methods that will be inherited by child classes    
     def processEvent(self, event):
@@ -41,16 +43,15 @@ class GenericFeature:
             raise Exception('Unknow feature state: ' + self.state)
         
     def setBinding(self, **args):
-        #logging.warning("Call to method 'setBinding' from generic class. Not implemented for the required feature.")
-        channel = args["channel"]
-        logging.debug("Configuring GPIO_" + str(channel) + "as input")
-        GPIO.setup(channel, GPIO.IN)
-        GPIO.add_event_detect(channel, GPIO.RISING, callback=self.processEvent, bouncetime=75)
+        self.channelIn = args["channel"]
+        logging.debug("Configuring GPIO_" + str(self.channelIn) + " as input")
+        GPIO.setup(self.channelIn, GPIO.IN)
+        GPIO.add_event_detect(self.channelIn, GPIO.RISING, callback=self.processEvent, bouncetime=75)
 
     # Methods that will be overrided by child classes    
     def start(self):
-        logging.warning("Call to method 'start' from generic class. Not implemented for the required feature.")
+        logging.warning("Call to method 'start' from generic class. Not implemented for the required feature: " + str(self.feature))
     
     def stop(self):
-        logging.warning("Call to method 'stop' from generic class. Not implemented for the required feature.")
+        logging.warning("Call to method 'stop' from generic class. Not implemented for the required feature: " + str(self.feature))
        

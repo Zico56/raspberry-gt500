@@ -1,7 +1,5 @@
+import logging
 from GenericFeature import *
-
-#logging.basicConfig(format='%(asctime)s : %(message)s', datefmt='%d/%m/%Y %H:%M:%S', filename='application.log', level=logging.DEBUG)
-#logger = logging.getLogger('Test')
 
 class Test(GenericFeature):
 
@@ -9,15 +7,15 @@ class Test(GenericFeature):
         super().__init__(parent, feature, led)
 
     def start(self):
-        print("Call to method 'start' from child class. Feature is implemented")
+        logging.debug("Call to method 'start' from child class. Feature is implemented")
         self.led.swithOn()
         
     def stop(self):
-        print("Call to method 'stop' from child class. Feature is implemented")
+        logging.debug("Call to method 'stop' from child class. Feature is implemented")
         self.led.swithOff()
     
     def setBinding(self, **args):
-        print("Call to method 'setBinding' from child class. Feature is implemented")
+        logging.debug("Call to method 'setBinding' from child class. Feature is implemented")
         self.led.label.bind("<Button-1>", self.processEvent)
     
     # Test method for converting image with Pillow
