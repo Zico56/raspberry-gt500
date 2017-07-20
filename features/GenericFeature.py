@@ -27,8 +27,8 @@ class GenericFeature:
         self.state = GenericFeature.STATE_OFF
         self.led = led
         self.feature = feature
-        if (testMode):
-            self.led.label.bind("<Button-1>", self.processEvent)
+        #if (testMode):
+        #    self.led.label.bind("<Button-1>", self.processEvent)
         
     # Methods that will be inherited by child classes    
     def processEvent(self, event):
