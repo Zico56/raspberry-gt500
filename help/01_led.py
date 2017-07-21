@@ -1,11 +1,14 @@
 #!/usr/bin/env python
-import RPi.GPIO as GPIO
+from emulator.GPIOEmulator import App
+from emulator.GPIOEmulator import GPIO 
 import time
+
+App()
 
 ####### BCM ######### : ### Cobbler Pin ### : ## Test ##
 # gpio02 (I2C : SDA)  : SDA                 : KO (already set)
 # gpio03 (I2C : SCL)  : SCL                 : KO (already set)
-# gpio04              : 7                   : OK
+# gpio04              : P7                   : OK
 # gpio07 (SPI : CE1)  : CE1                 : KO (legere lumiere)
 # gpio08 (SPI : CE0)  : CE0                 : KO (legere lumiere)
 # gpio09 (SPI : MISO) : MISO                : OK
@@ -13,16 +16,16 @@ import time
 # gpio11 (SPI : CLK)  : SCLK                : OK
 # gpio14 (UART : TXD) : TXD                 : KO (already set)
 # gpio15 (UART : RXD) : RXD                 : KO (legere lumiere)
-# gpio17              : 0                   : OK
-# gpio18 (PWM)        : 1                   : OK
-# gpio22              : 3                   : OK
-# gpio23              : 4                   : OK
-# gpio24              : 5                   : OK
-# gpio25              : 6                   : OK
-# gpio27              : 2                   : OK
+# gpio17              : P0                   : OK
+# gpio18 (PWM)        : P1                   : OK
+# gpio22              : P3                   : OK
+# gpio23              : P4                   : OK
+# gpio24              : P5                   : OK
+# gpio25              : P6                   : OK
+# gpio27              : P2                   : OK
 
 
-LedPin = 27    # gpio17
+LedPin = 2    # gpioXX
 
 def setup():
 	GPIO.setmode(GPIO.BCM)       # Numbers GPIOs by physical location
@@ -31,10 +34,10 @@ def setup():
 
 def loop():
 	while True:
-		print '...led on'
+		print('...led on')
 		GPIO.output(LedPin, GPIO.LOW)  # led on
 		time.sleep(0.5)
-		print 'led off...'
+		print('led off...')
 		GPIO.output(LedPin, GPIO.HIGH) # led off
 		time.sleep(0.5)
 

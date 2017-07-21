@@ -39,9 +39,10 @@ verticalPW.add(canvas)
 frame = Frame(bg="black", bd=0)
 
 indicatorList = config.items("INDICATOR_PATH")
+
 featureList = config.items("FEATURE_MODULE")
-gridNumberOfColumns = len(indicatorList)
-for x in range(0, gridNumberOfColumns):
+nbFeature = len(indicatorList)
+for x in range(0, nbFeature):
 
     led = Led(frame)
     led.label.grid(row=0, column=x)
@@ -63,7 +64,7 @@ frame.pack()
 verticalPW.add(frame)
 verticalPW.pack()
 
-fenetre.geometry('%dx%d+%d+%d' % (350, 295, 0, 0))
+fenetre.geometry('%dx%d+%d+%d' % (60*nbFeature, 295, 0, 0))
 
 fenetre.mainloop()
 
