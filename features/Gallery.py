@@ -1,17 +1,21 @@
 import logging
 from tkinter import *
 from PIL import Image, ImageTk
+from os import listdir
+from os.path import isfile, join, splitext
 from features.GenericFeature import *
+from Configuration import config
 
 class Gallery(GenericFeature):
 
-    imageLeft = Image.open("jpg/left_off.jpg")
-    imageRight = Image.open("jpg/right_off.jpg")    
+    galleryPath = config.get('GALLERY', 'GALLERY_PATH')
+    imageLeft = Image.open(config.get('GALLERY', 'LEFT_INDIC_PATH'))
+    imageRight = Image.open(config.get('GALLERY', 'RIGHT_INDIC_PATH'))    
 
     def __init__(self, parent, feature, led):
         super().__init__(parent, feature, led)
         self.parent = parent
-        self.createGalleryPanel()
+        self.createGalleryPanel()        
 
     # Overrided methods   
     def start(self):
@@ -31,7 +35,7 @@ class Gallery(GenericFeature):
         self.panel.add(self.labelLeft)
         
         size = 150,150
-        imageTest = Image.open("jpg/test_img_1.jpg")
+        imageTest = Image.open("gallery/test_img_1.jpg")
         imageTest.thumbnail(size,Image.ANTIALIAS)
         imgTest = ImageTk.PhotoImage(imageTest)
         labelTest = Label(self.panel, image=imgTest, bg="black", anchor='center')
@@ -52,10 +56,12 @@ class Gallery(GenericFeature):
                 imgLeft = ImageTk.PhotoImage(Image.open("jpg/left_on.jpg"))
                 self.labelLeft.configure(image=imgLeft)
                 self.labelLeft.image = imgLeft
+                # TODO: display previous image
             elif (event.keysym == "Right"):
                 imgRight = ImageTk.PhotoImage(Image.open("jpg/right_on.jpg"))
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
+                # TODO: display next image
         elif (event.type == "3"):
             if (event.keysym == "Left"):
                 imgLeft = ImageTk.PhotoImage(Image.open("jpg/left_off.jpg"))
@@ -65,3 +71,10 @@ class Gallery(GenericFeature):
                 imgRight = ImageTk.PhotoImage(Image.open("jpg/right_off.jpg"))
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
+
+    def listFiles():
+        for f in listdir(self.galleryPath):
+            print(isfile(join(self.galleryPath, f)))
+            print(str(f))
+            extension = splitext(f)[1]
+            print("extension:" + extension)
