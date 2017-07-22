@@ -49,7 +49,7 @@ for x in range(0, nbFeature):
 
     feature = GenericFeature(fenetre, featureList[x][1], led)
     
-    channel = config.get('GPIO_INPUT', 'GPIO_IN_'+str(x+1))
+    channel = config.getint('GPIO_INPUT', 'GPIO_IN_'+str(x+1))
     feature.setBinding(channel=channel)
     
     imgIndic = PhotoImage(file=indicatorList[x][1])
