@@ -66,8 +66,12 @@ verticalPW.pack()
 
 fenetre.geometry('%dx%d+%d+%d' % (60*nbFeature, 295, 0, 0))
 
-fenetre.mainloop()
+try:
+    fenetre.mainloop()
 
-
+except Exception as ex:
+    traceback.print_exc()
+finally:
+    GPIO.cleanup() #this ensures a clean exit
     
 

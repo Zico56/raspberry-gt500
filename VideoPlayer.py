@@ -1,7 +1,40 @@
+<<<<<<< HEAD:Player3.py
 import Tkinter as tk
 import threading
 import imageio
 from PIL import Image, ImageTk
+=======
+import tkinter as tk
+#import threading
+#import imageio
+#from PIL import Image, ImageTk
+import pygame
+
+FPS = 60
+
+pygame.init()
+clock = pygame.time.Clock()
+movie = pygame.movie.Movie('video/sample.mp4')
+screen = pygame.display.set_mode(movie.get_size())
+movie_screen = pygame.Surface(movie.get_size()).convert()
+
+movie.set_display(movie_screen)
+movie.play()
+
+
+playing = True
+while playing:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            movie.stop()
+            playing = False
+
+    screen.blit(movie_screen,(0,0))
+    pygame.display.update()
+    clock.tick(FPS)
+
+pygame.quit()
+>>>>>>> e42fb8ca966f065803c05debe0a4d14dbaf6a61a:VideoPlayer.py
 
 '''
 video_name = "video/sample.mp4" #This is your video file path
@@ -29,7 +62,6 @@ if __name__ == "__main__":
     thread.daemon = 1
     thread.start()
     root.mainloop()
-'''
 
 from skvideo.io import VideoCapture
 
@@ -42,3 +74,4 @@ while True:
     # do something with image here
     if not retval:
         break
+'''
