@@ -2,7 +2,20 @@ from tkinter import *
  
 import pygame
 import os
- 
+
+root = Tk()
+
+def play():
+    pygame.mixer.init()
+    pygame.init()
+    pygame.mixer.music.load("audio/SampleAudio_0.7mb.mp3")
+    pygame.mixer.music.play()
+
+play()
+
+root.mainloop()
+
+''' 
 def playpause():
     movie.pause()
  
@@ -21,3 +34,4 @@ movie = pygame.movie.Movie('video/sample/mp4')
  
 movie.play()
 root.mainloop()
+'''
