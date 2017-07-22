@@ -27,8 +27,8 @@ class GenericFeature:
         self.state = GenericFeature.STATE_OFF
         self.led = led
         self.feature = feature
-        #if (testMode):
-        #    self.led.label.bind("<Button-1>", self.processEvent)
+        if (testMode):
+            self.led.label.bind("<Button-1>", self.processEvent)
         
     # Methods that will be inherited by child classes    
     def processEvent(self, event):
@@ -44,7 +44,6 @@ class GenericFeature:
             raise Exception('Unknow feature state: ' + self.state)
         
     def setBinding(self, **args):
-        self.led.label.bind("<Button-1>", self.processEvent)
         self.channelIn = args["channel"]
         logging.debug("Configuring GPIO_" + str(self.channelIn) + " as input")
         GPIO.setup(self.channelIn, GPIO.IN)
