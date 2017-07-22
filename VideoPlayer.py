@@ -1,3 +1,9 @@
+<<<<<<< HEAD:Player3.py
+import Tkinter as tk
+import threading
+import imageio
+from PIL import Image, ImageTk
+=======
 import tkinter as tk
 #import threading
 #import imageio
@@ -28,6 +34,7 @@ while playing:
     clock.tick(FPS)
 
 pygame.quit()
+>>>>>>> e42fb8ca966f065803c05debe0a4d14dbaf6a61a:VideoPlayer.py
 
 '''
 video_name = "video/sample.mp4" #This is your video file path

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from emulator.GPIOEmulator import App
-from emulator.GPIOEmulator import GPIO 
+#from emulator.GPIOEmulator import App
+#from emulator.GPIOEmulator import GPIO 
+import RPi.GPIO as GPIO
 import time
 
-App()
+#App()
 
 ####### BCM ######### : ### Cobbler Pin ### : ## Test ##
 # gpio02 (I2C : SDA)  : SDA                 : KO (already set)
@@ -25,24 +26,24 @@ App()
 # gpio27              : P2                   : OK
 
 
-LedPin = 2    # gpioXX
+LedPin = 17    # gpioXX
 
 def setup():
 	GPIO.setmode(GPIO.BCM)       # Numbers GPIOs by physical location
 	GPIO.setup(LedPin, GPIO.OUT)   # Set LedPin's mode is output
-	GPIO.output(LedPin, GPIO.HIGH) # Set LedPin high(+3.3V) to off led
+	GPIO.output(LedPin, GPIO.LOW) # Set LedPin high(+3.3V) to off led
 
 def loop():
 	while True:
 		print('...led on')
-		GPIO.output(LedPin, GPIO.LOW)  # led on
+		GPIO.output(LedPin, GPIO.HIGH)  # led on
 		time.sleep(0.5)
 		print('led off...')
-		GPIO.output(LedPin, GPIO.HIGH) # led off
+		GPIO.output(LedPin, GPIO.LOW) # led off
 		time.sleep(0.5)
 
 def destroy():
-	GPIO.output(LedPin, GPIO.HIGH)     # led off
+	GPIO.output(LedPin, GPIO.LOW)     # led off
 	GPIO.cleanup()                     # Release resource
 
 if __name__ == '__main__':     # Program start from here
