@@ -17,7 +17,7 @@ class GpioFeature(GenericFeature):
     def setBinding(self, **args):
         super().setBinding(**args)
         
-        self.channelOut = config.get('GPIO_OUTPUT', str(self.channelIn))
+        self.channelOut = config.getint('GPIO_OUTPUT', str(self.channelIn))
         logging.debug("Configuring GPIO_" + str(self.channelOut) + "as output")
         GPIO.setup(self.channelOut, GPIO.OUT)
     
