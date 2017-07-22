@@ -1,4 +1,4 @@
-import tkinter as tk
+import Tkinter as tk
 import threading
 import imageio
 from PIL import Image, ImageTk
