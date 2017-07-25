@@ -1,4 +1,6 @@
 import logging
+import threading
+import time
 from tkinter import *
 from PIL import Image, ImageTk
 from os import listdir
@@ -8,9 +10,19 @@ from Configuration import config
 
 class Gallery(GenericFeature):
 
+    #t = None
+    currentImage = None
+
+    # Path to images directory for the gallery
     galleryPath = config.get('GALLERY', 'GALLERY_PATH')
-    imageLeft = Image.open(config.get('GALLERY', 'LEFT_INDIC_PATH'))
-    imageRight = Image.open(config.get('GALLERY', 'RIGHT_INDIC_PATH'))    
+    
+    # Left arrow on/off images
+    leftImgOn = Image.open(config.get('GALLERY', 'LEFT_ARROW_ON'))
+    leftImgOff = Image.open(config.get('GALLERY', 'LEFT_ARROW_OFF'))
+    
+    # Right arrow on/off images
+    rightImgOn = Image.open(config.get('GALLERY', 'RIGHT_ARROW_ON'))     
+    rightImgOff = Image.open(config.get('GALLERY', 'RIGHT_ARROW_OFF'))   
 
     def __init__(self, parent, feature, led):
         super().__init__(parent, feature, led)
@@ -29,52 +41,112 @@ class Gallery(GenericFeature):
     def createGalleryPanel(self):
         self.panel = PanedWindow(self.parent, orient=HORIZONTAL, bg="black")
 
-        imgLeft = ImageTk.PhotoImage(self.imageLeft)
+        # left arrow
+        imgLeft = ImageTk.PhotoImage(self.leftImgOff)
         self.labelLeft = Label(self.panel, image=imgLeft, bg="black")
         self.labelLeft.image = imgLeft
-        self.panel.add(self.labelLeft)
         
-        size = 150,150
-        imageTest = Image.open("gallery/test_img_1.jpg")
-        imageTest.thumbnail(size,Image.ANTIALIAS)
-        imgTest = ImageTk.PhotoImage(imageTest)
-        labelTest = Label(self.panel, image=imgTest, bg="black", anchor='center')
-        labelTest.image = imgTest
-        self.panel.add(labelTest)        
-
-        imgRight = ImageTk.PhotoImage(self.imageRight)
+        # right arrow
+        imgRight = ImageTk.PhotoImage(self.rightImgOff)
         self.labelRight = Label(self.panel, image=imgRight, bg="black")
-        self.labelRight.image = imgRight
-        self.panel.add(self.labelRight)
+        self.labelRight.image = imgRight    
         
+        # gallery image
+        self.labelImage = Label(self.panel, bg="black", anchor='center')
+        self.setImageToDisplay(0)
+        self.displayPanelImage()
+        
+        # panel construction
+        self.panel.add(self.labelLeft)
+        self.panel.add(self.labelImage)       
+        self.panel.add(self.labelRight)
         self.panel.bind("<Key>", self.callback)
         self.panel.bind("<KeyRelease>", self.callback)
         
     def callback(self, event):
         if (event.type == "2"):
             if (event.keysym == "Left"):
-                imgLeft = ImageTk.PhotoImage(Image.open("jpg/left_on.jpg"))
+                imgLeft = ImageTk.PhotoImage(self.leftImgOn)
                 self.labelLeft.configure(image=imgLeft)
                 self.labelLeft.image = imgLeft
-                # TODO: display previous image
+                self.showPreviousImage()
             elif (event.keysym == "Right"):
-                imgRight = ImageTk.PhotoImage(Image.open("jpg/right_on.jpg"))
+                imgRight = ImageTk.PhotoImage(self.rightImgOn)
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
-                # TODO: display next image
+                self.showNextImage()
         elif (event.type == "3"):
             if (event.keysym == "Left"):
-                imgLeft = ImageTk.PhotoImage(Image.open("jpg/left_off.jpg"))
+                imgLeft = ImageTk.PhotoImage(self.leftImgOff)
                 self.labelLeft.configure(image=imgLeft)
                 self.labelLeft.image = imgLeft
             elif (event.keysym == "Right"):
-                imgRight = ImageTk.PhotoImage(Image.open("jpg/right_off.jpg"))
+                imgRight = ImageTk.PhotoImage(self.rightImgOff)
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
+        
+        '''
+        #test demo mode
+        if (self.t is None):
+            self.pill2kill = threading.Event()
+            self.t = threading.Thread(target=self.demoMode, args=(self.pill2kill,))
+            print("thread not alive")
+            print("starting thread")
+            self.t.start()
+        else:
+            print("alive: " + str(self.t.isAlive()))
+            print("thread alive")
+            time.sleep(2)
+            print("killing thread")
+            self.pill2kill.set()
+            self.t.join()
+            self.t = None
+        '''
+     
+    '''
+    def demoMode(self, stop_event):
+        t = threading.currentThread()
+        while not stop_event.wait(1):
+            print("demo mode")
+        time.sleep(1)
+        print("stop demo mode")        
+    '''
+    
+    def displayPanelImage(self):
+        size = 150,150
+        image = Image.open(self.galleryPath + self.currentImage)
+        image.thumbnail(size,Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(image)
+        self.labelImage.configure(image=img)
+        self.labelImage.image = img 
+    
+    def showNextImage(self):
+        self.setImageToDisplay(1)
+        self.displayPanelImage()
+        
+    def showPreviousImage(self):
+        self.setImageToDisplay(-1)
+        self.displayPanelImage()
+    
+    def setImageToDisplay(self, rank):
+        fileList = listdir(self.galleryPath)
+        
+        if (self.currentImage == None):
+            fileIdx = 0 
+        else:
+            for i, file in enumerate(fileList):
+                if (self.currentImage == file):
+                    fileIdx = i + rank
+                    if (fileIdx+1 > len(fileList)):
+                        fileIdx = 0
+                    elif (fileIdx < 0):
+                        fileIdx = len(fileList)-1
+                    break
 
-    def listFiles():
-        for f in listdir(self.galleryPath):
-            print(isfile(join(self.galleryPath, f)))
-            print(str(f))
-            extension = splitext(f)[1]
-            print("extension:" + extension)
+        self.currentImage = fileList[fileIdx]
+        
+        #for file in listdir(self.galleryPath):
+            #print(isfile(join(self.galleryPath, f)))
+            #print(str(f))
+            #extension = splitext(f)[1]
+            #print("extension:" + extension)

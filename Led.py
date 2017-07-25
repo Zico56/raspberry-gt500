@@ -1,10 +1,11 @@
 from tkinter import *
 from PIL import Image, ImageTk, ImageDraw
+from Configuration import config
 
 class Led:
 
-    imageOff = Image.open("jpg/rsz_red-led-off-th.jpg")
-    imageOn = Image.open("jpg/rsz_red-led-on-th.jpg")
+    imageOn = Image.open(config.get('APPLICATION', 'LED_ON_IMG'))
+    imageOff = Image.open(config.get('APPLICATION', 'LED_OFF_IMG'))
     
     STATE_ON = "ON"
     STATE_OFF = "OFF"

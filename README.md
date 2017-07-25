@@ -1,6 +1,13 @@
 # raspberry-gt500
 Project for animating and lighting up a scale modele (GT500) with a raspberry pi
 
+######### Power supply #########
+Raspberry : 5V
+Screen : 9V/12V
+Smoke : 12V
+Electronic (with breadboard) : 9V
+Battery supply : 12V
+
 ######### Features #########
 Lights (front/rear)
 Warning/left-right indicators
