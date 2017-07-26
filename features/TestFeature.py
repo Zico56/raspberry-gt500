@@ -7,13 +7,13 @@ class TestFeature(GenericFeature):
         super().__init__(parent, configSection)
 
     def start(self):
-        logging.debug("Call to method 'start' from child class. Feature is implemented")
+        logging.info("Call to method 'start' from child class. Feature is implemented")
         
     def stop(self):
-        logging.debug("Call to method 'stop' from child class. Feature is implemented")
+        logging.info("Call to method 'stop' from child class. Feature is implemented")
     
     def setBinding(self):
-        logging.debug("Call to method 'setBinding' from child class. Feature is implemented")
+        logging.info("Call to method 'setBinding' from child class. Feature is implemented")
         self.led.label.bind("<Button-1>", self.processEvent)
     
     # Test method for converting image with Pillow

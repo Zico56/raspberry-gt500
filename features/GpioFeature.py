@@ -21,7 +21,7 @@ class GpioFeature(GenericFeature):
             raise Exception("No GPIO output defined.")
         self.channelOut = int(self.channelOut)
         
-        logging.debug("Configuring GPIO_" + str(self.channelOut) + " as an output.")
+        logging.info("Configuring GPIO_" + str(self.channelOut) + " as an output.")
         GPIO.setup(self.channelOut, GPIO.OUT)
     
     def start(self): 

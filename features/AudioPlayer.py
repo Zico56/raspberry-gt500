@@ -15,11 +15,11 @@ class AudioPlayer(GenericFeature):
         pygame.mixer.music.load(self.path)
 
     def start(self):
-        logging.debug("Audio player start")
+        logging.info("Audio player start")
         pygame.mixer.music.play()
         
     def stop(self):
-        logging.debug("Audio player stop")
+        logging.info("Audio player stop")
         pygame.mixer.music.stop()
     
     def setBinding(self):

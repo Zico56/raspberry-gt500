@@ -1,15 +1,15 @@
-from tkinter import *
-from PIL import Image, ImageTk
-
 ################# CONFIG #################
 import logging
 import logging.config
-logging.config.fileConfig('properties/logging.properties')
+logging.config.fileConfig('properties/logging.properties') 
 
 from Configuration import config
 from Configuration import testMode
 ##########################################
 
+
+from tkinter import *
+from PIL import Image, ImageTk
 from Led import Led
 from emulator.GPIOEmulator import App
 from features.GenericFeature import *
@@ -24,7 +24,7 @@ fenetre.wm_title("Rasperry GT500")
 #fenetre.overrideredirect(1) # ==> Window without title and border
 
 ######################## TEST MODE ########################
-logging.debug("Test mode: " + str(testMode))
+logging.info("GPIO Emulator: " + str(testMode))
 if(testMode):
     App()
 ###########################################################
@@ -50,6 +50,7 @@ horizontalPW.pack()
 # Adding feature
 nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
 nbOfFeaturesSet = 0
+
 for x in range(1, nbOfFeaturesMax+1):
    
     configSection = 'FEATURE_' + str(x)

@@ -46,14 +46,7 @@ class GenericFeature:
         self.indicator = Indicator(parent, indicImgOnPath, indicImgOffPath)
 
         # Event binding
-        self.setBinding()
-        
-        #configOptions = dict(config.items(configSection))
-        #moduleName = configOptions['MODULE_NAME']
-        #indicOnImg = configOptions['INDIC_ON_IMG']
-        #imgIndic = PhotoImage(file=indicOnImg)
-        #indicator = Label(frame, image=imgIndic, bg="black")
-        
+        self.setBinding()        
         
     # Methods that will be inherited by child classes    
     def processEvent(self, event):
@@ -78,7 +71,7 @@ class GenericFeature:
         if (self.channelIn == None) or (self.channelIn == ''):
             raise Exception("No GPIO input defined.")            
         self.channelIn = int(self.channelIn)
-        logging.debug("Configuring GPIO_" + str(self.channelIn) + " as an input.")
+        logging.info("Configuring GPIO_" + str(self.channelIn) + " as an input.")
         
         GPIO.setup(self.channelIn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(self.channelIn, GPIO.RISING, callback=self.processEvent, bouncetime=75)
