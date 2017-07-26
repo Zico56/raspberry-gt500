@@ -389,7 +389,7 @@ class GPIO:
         #GPIO.checkModeValidator()
                 
         if (outmode != GPIO.LOW and outmode != GPIO.HIGH):
-            raise Exception('Output must be set to HIGH/LOW')
+            raise Exception('Output must be set to HIGH/LOW: ' + str(outmode))
         
         global dictionaryPinsTkinter
         objBtn = dictionaryPinsTkinter[channel]
