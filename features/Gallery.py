@@ -24,10 +24,9 @@ class Gallery(GenericFeature):
     rightImgOn = Image.open(config.get('GALLERY', 'RIGHT_ARROW_ON'))     
     rightImgOff = Image.open(config.get('GALLERY', 'RIGHT_ARROW_OFF'))   
 
-    def __init__(self, parent, feature, led):
-        super().__init__(parent, feature, led)
-        self.parent = parent
-        self.createGalleryPanel()        
+    def __init__(self, parent, configSection):
+        super().__init__(parent, configSection)
+        self.createGalleryPanel()               
 
     # Overrided methods   
     def start(self):
@@ -39,7 +38,7 @@ class Gallery(GenericFeature):
 
     # Class methods
     def createGalleryPanel(self):
-        self.panel = PanedWindow(self.parent, orient=HORIZONTAL, bg="black")
+        self.panel = PanedWindow(self.parent.winfo_toplevel(), orient=HORIZONTAL, bg="black")
 
         # left arrow
         imgLeft = ImageTk.PhotoImage(self.leftImgOff)

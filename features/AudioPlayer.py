@@ -1,17 +1,18 @@
 import pygame
-import os
 import logging
+from Configuration import config
 from features.GenericFeature import *
 
 class AudioPlayer(GenericFeature):
 
-    
+    # Path to track to play
+    path = config.get('PLAYER', 'PATH')
 
-    def __init__(self, parent, feature, led):
-        super().__init__(parent, feature, led)
+    def __init__(self, parent, configSection):
+        super().__init__(parent, configSection)
         pygame.mixer.init()
         pygame.init()
-        pygame.mixer.music.load("audio/SampleAudio_0.7mb.mp3")
+        pygame.mixer.music.load(self.path)
 
     def start(self):
         logging.debug("Audio player start")
@@ -21,10 +22,11 @@ class AudioPlayer(GenericFeature):
         logging.debug("Audio player stop")
         pygame.mixer.music.stop()
     
-    def setBinding(self, **args):
-        super().setBinding(**args)
+    def setBinding(self):
+        super().setBinding()
 
 '''
+import os
 def playpause():
     movie.pause()
  

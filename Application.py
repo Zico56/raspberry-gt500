@@ -29,44 +29,44 @@ if(testMode):
     App()
 ###########################################################
 
-verticalPW = PanedWindow(fenetre, orient=VERTICAL, bg="black")
 
-canvas = Canvas(width=350, height=200, bg="black", highlightthickness=0)
+# Init. frames
+topFrame = Frame(fenetre, bg="black", bd=0)
+topFrame.pack(side=TOP, fill='both', expand=True)
 
+bottomFrame = Frame(fenetre, bg="black", bd=0)
+bottomFrame.pack(side=BOTTOM, fill='both', expand=True)
 
+# Background image
 imgBg = createImage(config.get('APPLICATION', 'BKGND_IMG'))
+canvas = Canvas(topFrame, width=350, height=200, bg="black", highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=imgBg)
-verticalPW.add(canvas)
+canvas.pack()
 
-frame = Frame(bg="black", bd=0)
+# Panel for led and indicator
+horizontalPW = PanedWindow(bottomFrame, orient=HORIZONTAL, bg="black")
+horizontalPW.pack()
 
-indicatorList = config.items("INDICATOR_PATH")
-
-featureList = config.items("FEATURE_MODULE")
-nbFeature = len(indicatorList)
-for x in range(0, nbFeature):
-
-    led = Led(frame)
-    led.label.grid(row=0, column=x)
-
-    feature = GenericFeature(fenetre, featureList[x][1], led)
+# Adding feature
+nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
+nbOfFeaturesSet = 0
+for x in range(1, nbOfFeaturesMax+1):
+   
+    configSection = 'FEATURE_' + str(x)
+    if(config.has_section(configSection)):
+        imgFrame = Frame(horizontalPW, bg="black", bd=0)
+        imgFrame.pack()
     
-    channel = config.getint('GPIO_INPUT', 'GPIO_IN_'+str(x+1))
-    feature.setBinding(channel=channel)
+        horizontalPW.add(imgFrame)
     
-    imgIndic = PhotoImage(file=indicatorList[x][1])
-    indicator = Label(frame, image=imgIndic, bg="black")
-    indicator.image = imgIndic
-    indicator.grid(row=1, column=x)
-    
-    frame.columnconfigure(x, weight=20)
+        feature = GenericFeature(imgFrame, configSection)     
+        nbOfFeaturesSet+=1
 
-frame.pack()
-
-verticalPW.add(frame)
-verticalPW.pack()
-
-fenetre.geometry('%dx%d+%d+%d' % (60*nbFeature, 295, 0, 0))
+# Configuring window size        
+width = nbOfFeaturesSet*65   
+if (width < 300):
+    width = 300       
+fenetre.geometry('%dx%d+%d+%d' % (width, 295, 0, 0))
 
 try:
     fenetre.mainloop()

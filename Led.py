@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import Image, ImageTk, ImageDraw
+from PIL import Image, ImageTk
 from Configuration import config
 
 class Led:
@@ -14,14 +14,8 @@ class Led:
         self.state = Led.STATE_OFF
         self.img = ImageTk.PhotoImage(Led.imageOff)
         self.label = Label(parent, image=self.img, bg="black")
-        self.label.image = self.img        
-        '''
-        self.image = Image.open("gif/rsz_red-led-off-th.gif")
-        self.photoImage = ImageTk.PhotoImage(self.image)
-        self.canvas = Canvas(parent, width=25, height=25, bg="white", highlightthickness=0)
-        self.canvas.create_image(0, 0, anchor=NW, image=self.photoImage)
-        self.canvas.bind("<Button-1>", self.callback)
-        '''
+        self.label.image = self.img
+        self.label.pack()    
         
     def swithOn(self):
         self.img = ImageTk.PhotoImage(Led.imageOn)
@@ -34,6 +28,7 @@ class Led:
         self.state = Led.STATE_OFF
 
     # deprecated: use swithOn/swithOff methods instead
+    '''
     def changeColor(self):
         if ( self.state == "OFF"):
             self.img = ImageTk.PhotoImage(Led.imageOn)
@@ -45,3 +40,4 @@ class Led:
             self.state = "OFF"
         else:
             raise Exception('Unknow led state')
+    '''

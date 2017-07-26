@@ -8,6 +8,7 @@ def main():
     logging.info("Loading configuration file")
     global config
     config = configparser.RawConfigParser()
+    config.optionxform = str
     config.read('properties/config.properties')
     
     global testMode

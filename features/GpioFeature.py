@@ -11,13 +11,17 @@ else:
 
 class GpioFeature(GenericFeature):
 
-    def __init__(self, parent, feature, led):
-        super().__init__(parent, feature, led)
+    def __init__(self, parent, configSection):
+        super().__init__(parent, configSection)
 
-    def setBinding(self, **args):
-        super().setBinding(**args)        
-        self.channelOut = config.getint('GPIO_OUTPUT', str(self.channelIn))
-        logging.debug("Configuring GPIO_" + str(self.channelOut) + "as output")
+    def setBinding(self):
+        super().setBinding()        
+        self.channelOut = self.featureOptions['GPIO_OUTPUT']
+        if (self.channelOut == None) or (self.channelOut == ''):
+            raise Exception("No GPIO output defined.")
+        self.channelOut = int(self.channelOut)
+        
+        logging.debug("Configuring GPIO_" + str(self.channelOut) + " as an output.")
         GPIO.setup(self.channelOut, GPIO.OUT)
     
     def start(self): 
