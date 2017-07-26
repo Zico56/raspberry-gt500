@@ -13,9 +13,9 @@
 import RPi.GPIO as GPIO
 import time
 
-SDI   = 11
-RCLK  = 12
-SRCLK = 13
+SDI   = 11 #GPIO_17 #Cobbler_P0
+RCLK  = 12 #GPIO_18 #Cobbler_P1
+SRCLK = 13 #GPIO_27 #Cobbler_P2
 
 #===============   LED Mode Defne ================
 #	You can define yourself, in binay, and convert it to Hex 
