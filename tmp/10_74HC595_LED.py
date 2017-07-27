@@ -10,12 +10,16 @@
 #
 #=================================================
 
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
+from emulator.GPIOEmulator import App
+from emulator.GPIOEmulator import GPIO
 import time
 
-SDI   = 11 #GPIO_17 #Cobbler_P0
-RCLK  = 12 #GPIO_18 #Cobbler_P1
-SRCLK = 13 #GPIO_27 #Cobbler_P2
+App()
+
+SDI   = 17 #pin11 #GPIO_17 #Cobbler_P0
+RCLK  = 18 #pin12 #GPIO_18 #Cobbler_P1
+SRCLK = 27 #pin13 #GPIO_27 #Cobbler_P2
 
 #===============   LED Mode Defne ================
 #	You can define yourself, in binay, and convert it to Hex 
@@ -31,11 +35,11 @@ LED3 = [0x02,0x03,0x0b,0x0f,0x2f,0x3f,0xbf,0xff]	#blink mode 3
 #=================================================
 
 def print_msg():
-	print 'Program is running...'
-	print 'Please press Ctrl+C to end the program...'
+	print('Program is running...')
+	print('Please press Ctrl+C to end the program...')
 
 def setup():
-	GPIO.setmode(GPIO.BOARD)    # Number GPIOs by its physical location
+	GPIO.setmode(GPIO.BCM)    # Number GPIOs by its physical location
 	GPIO.setup(SDI, GPIO.OUT)
 	GPIO.setup(RCLK, GPIO.OUT)
 	GPIO.setup(SRCLK, GPIO.OUT)
@@ -45,7 +49,7 @@ def setup():
 
 def hc595_in(dat):
     for bit in range(0, 8):	
-        GPIO.output(SDI, 0x80 & (dat << bit))
+        GPIO.output(SDI, 0x01 & (dat >> bit))
         GPIO.output(SRCLK, GPIO.HIGH)
         time.sleep(0.001)
         GPIO.output(SRCLK, GPIO.LOW)
@@ -56,19 +60,18 @@ def hc595_out():
 	GPIO.output(RCLK, GPIO.LOW)
 
 def loop():
-	WhichLeds = LEDX	# Change Mode, modes from LED0 to LED3
-	sleeptime = 0.1		# Change speed, lower value, faster speed
-	while True:
-		for i in range(0, len(WhichLeds)):
-			hc595_in(WhichLeds[i])
-			hc595_out()
-			time.sleep(sleeptime)
-		
+    WhichLeds = LEDX	# Change Mode, modes from LED0 to LED3
+    sleeptime = 0.1		# Change speed, lower value, faster speed
+    while True:
+        for i in range(0, len(WhichLeds)):
+            hc595_in(WhichLeds[i])
+            hc595_out()
+            time.sleep(sleeptime)
         '''
-		for i in range(len(WhichLeds)-1, -1, -1):
-			hc595_in(WhichLeds[i])
-			hc595_out()
-			time.sleep(sleeptime)
+        for i in range(len(WhichLeds)-1, -1, -1):
+            hc595_in(WhichLeds[i])
+            hc595_out()
+            time.sleep(sleeptime)
         '''
 
 def destroy():   # When program ending, the function is executed. 

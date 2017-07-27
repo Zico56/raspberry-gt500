@@ -12,21 +12,6 @@ if (isExtendedGpio):
     GPIONames=["14","15","18","23","24","25","8","7","12","16","20","21","2","3","4","17","27","22","10","9","11","5","6","13","19","26"]
 else:
     GPIONames=["14","15","18","23","24","25","8","7","2","3","4","17","27","22","10","9","11"]
-
-
-
-'''
-def toggleButton(gpioID):
-    objBtn = dictionaryPinsTkinter[str(gpioID)]
-    objPin = dictionaryPins[str(gpioID)]
-    
-    if(objPin.In == "1"):
-        objPin.In = "0"
-    elif(objPin.In == "0"):
-        objPin.In = "1"
-        
-    objBtn["text"] = "GPIO" + str(gpioID) + "\nIN=" + str(objPin.In)
-'''
     
 def buttonClick(self):
     channel = (self.widget.config('command')[-1])
