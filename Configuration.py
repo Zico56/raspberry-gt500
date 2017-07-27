@@ -2,7 +2,7 @@ import logging
 import configparser
 
 config = ''
-testMode = 'False'
+testMode = False
 
 def main():
     logging.info("Loading configuration file")

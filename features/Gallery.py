@@ -10,7 +10,6 @@ from Configuration import config
 
 class Gallery(GenericFeature):
 
-    #t = None
     currentImage = None
 
     # Path to images directory for the gallery

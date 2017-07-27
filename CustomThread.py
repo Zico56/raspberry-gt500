@@ -1,12 +1,4 @@
 import threading
-import time
-
-SDI = 17
-RCLK = 18
-SRCLK = 27
-
-def getlist(option, sep=','):
-    return [ int(chunk,16) for chunk in option.split(sep) ]
 
 class CustomThread(threading.Thread):
     def __init__(self, function):
