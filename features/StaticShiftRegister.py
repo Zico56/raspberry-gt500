@@ -40,39 +40,6 @@ class ShiftRegister(GenericFeature):
         GPIO.output(self.RCLK, GPIO.LOW)
         GPIO.output(self.SRCLK, GPIO.LOW)
 
-    def start(self):
-        logging.info("Starting 74HC595 thread.")
-        self.thread = CustomThread(self._74hc595)
-        self.thread.start()
-        
-    def stop(self):
-        logging.info("Stopping 74HC595 thread.")
-        self.thread.event.set()  
-    
-    def _74hc595(self):
-        # Display template for leds
-        ledTemplate = getlist(self.featureOptions['LED_TEMPLATE'])
-        
-        # Time out delay between two sequence of the led template
-        sleeptime = 0.1
 
-        # Iteration on each led sequence
-        for i in range(0, len(ledTemplate)):  
-        
-            # Iteration on each 74HC595 bit/output
-            for bit in range(0, 8):  
-            
-                # Masking and setting state for each 74HC595 output
-                GPIO.output(self.SDI, 0x01 & (ledTemplate[i] >> bit))
-                GPIO.output(self.SRCLK, GPIO.HIGH)
-                time.sleep(0.001)
-                GPIO.output(self.SRCLK, GPIO.LOW)
-
-            # Signal to 74HC595 for display output
-            GPIO.output(self.RCLK, GPIO.HIGH)
-            time.sleep(0.001)
-            GPIO.output(self.RCLK, GPIO.LOW)
-            
-            # Time out before next sequence
-            time.sleep(sleeptime)        
+         
   

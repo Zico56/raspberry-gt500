@@ -73,9 +73,9 @@ input 2 : P4 (or reuse P1 ?)
 input 3 : P5 (or reuse P2 ?)
 output 1 : Front lights
 output 2 : Front fog lights
-output 3 : 
-output 4 : 
-output 5 : 
-output 6 : 
-output 7 : 
-output 8 : 
+output 3 : Rear left lights #1 #2 #3
+output 4 : Rear right lights #1 #2 #3
+output 5 : Lateral front lights
+output 6 : Lateral rear lights
+output 7 : Interior lights (tableau de bord)
+output 8 : Interior lights (plafonnier)

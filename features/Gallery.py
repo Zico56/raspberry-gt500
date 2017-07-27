@@ -73,6 +73,8 @@ class Gallery(GenericFeature):
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
                 self.showNextImage()
+            elif (event.keysym == "Up"):
+                print("up")
         elif (event.type == "3"):
             if (event.keysym == "Left"):
                 imgLeft = ImageTk.PhotoImage(self.leftImgOff)
@@ -100,16 +102,17 @@ class Gallery(GenericFeature):
             self.t.join()
             self.t = None
         '''
-     
-    '''
-    def demoMode(self, stop_event):
+    
+    '''   
+    def demoMode(self):
+        self.thread = CustomThread(self._74hc595)
+        self.thread.start()
         t = threading.currentThread()
         while not stop_event.wait(1):
             print("demo mode")
         time.sleep(1)
         print("stop demo mode")        
     '''
-    
     def displayPanelImage(self):
         size = 150,150
         image = Image.open(self.galleryPath + self.currentImage)

@@ -51,13 +51,24 @@ horizontalPW.pack()
 nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
 nbOfFeaturesSet = 0
 
+#######################################
+def getlist(option, sep=','):
+    list = []
+    for chunk in option.split(sep):
+        if(chunk != ''):
+            list.append(chunk)
+    return list
+#######################################
+
 for x in range(1, nbOfFeaturesMax+1):
    
     configSection = 'FEATURE_' + str(x)
     if(config.has_section(configSection)):
-        imgFrame = Frame(horizontalPW, bg="black", bd=0)
-        imgFrame.pack()
     
+        #gpioList = getlist(config.get(configSection, 'GPIO_INPUT'))
+        #for gpio in gpioList:        
+        imgFrame = Frame(horizontalPW, bg="black", bd=0)
+        imgFrame.pack()    
         horizontalPW.add(imgFrame)
     
         feature = GenericFeature(imgFrame, configSection)     
