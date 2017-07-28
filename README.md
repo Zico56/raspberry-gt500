@@ -54,7 +54,7 @@ gpio22 (P3)   : output : warning lights
 # gpio27              : P2                  : OK
 
 
-######### 74HC595 #1 Mapping #########
+######### 74HC595 Mapping #########
 input 1 : P0
 input 2 : P1
 input 3 : P2
@@ -66,6 +66,8 @@ output 5 : rear right indicator #2
 output 6 : rear right indicator #3
 output 7 : front left indicator
 output 8 : front right indicator
+---
+
 
 ######### 74HC595 #1 Mapping #########
 input 1 : P3 (or reuse P0 ?)
@@ -79,3 +81,4 @@ output 5 : Lateral front lights
 output 6 : Lateral rear lights
 output 7 : Interior lights (tableau de bord)
 output 8 : Interior lights (plafonnier)
+rear license plate

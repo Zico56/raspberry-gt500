@@ -7,4 +7,13 @@ def mask():
         print()
         #print("data:" + str(bin(dat)) + " | bit:" + str(bit) + " | mask:" + bin(dat & (0x01 << bit)))
         
-mask()
+#mask()
+
+led01 =  0x0001
+led05 =  0x0010
+led09 =  0x0100
+led13 =  0x1000
+
+leds = led01 | led05 | led09 | led13
+print(bin(leds))
+print(bin(0x8000))
