@@ -23,9 +23,9 @@ class ShiftRegister(GenericFeature):
         super().setBinding()    
         
         # Get GPIO port to use from configuration
-        self.SDI = self.featureOptions['GPIO_SDI']
-        self.RCLK = self.featureOptions['GPIO_RCLK']
-        self.SRCLK = self.featureOptions['GPIO_SRCLK']     
+        self.SDI = int(self.featureOptions['GPIO_SDI'])
+        self.RCLK = int(self.featureOptions['GPIO_RCLK'])
+        self.SRCLK = int(self.featureOptions['GPIO_SRCLK'])     
 
         # Define GPIO as output
         logging.info("Configuring GPIO_" + str(self.SDI) + " as an output.")
