@@ -60,7 +60,7 @@ class ShiftRegister(GenericFeature):
         for i in range(0, len(ledTemplate)):  
         
             # Iteration on each 74HC595 bit/output
-            for bit in range(0, 8):  
+            for bit in range(0, 16):  
             
                 # Masking and setting state for each 74HC595 output
                 GPIO.output(self.SDI, 0x01 & (ledTemplate[i] >> bit))
