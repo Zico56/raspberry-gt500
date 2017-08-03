@@ -1,4 +1,4 @@
-
+'''
 def mask():
     dat = 0x32
     for bit in range(0, 8):	
@@ -17,3 +17,15 @@ led13 =  0x1000
 leds = led01 | led05 | led09 | led13
 print(bin(leds))
 print(bin(0x8000))
+'''
+
+dict1 = dict()
+dict2 = dict()
+
+dict2['Y_1'] = 'test1'
+dict1['X_1'] = dict2
+
+print(dict1)
+print(dict1['X_1']['Y_1'])
+#{'X_1': {'Y_1': 'test1'}}
+#test1

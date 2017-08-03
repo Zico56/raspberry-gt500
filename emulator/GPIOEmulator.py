@@ -4,6 +4,7 @@ from tkinter import *
 import tkinter as tk
 from Configuration import config
 
+
 dictionaryPins = {}
 dictionaryPinsTkinter = {}
 

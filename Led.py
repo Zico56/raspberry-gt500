@@ -1,3 +1,4 @@
+import time
 from tkinter import *
 from PIL import Image, ImageTk
 from Configuration import config
@@ -30,14 +31,14 @@ class Led:
     # deprecated: use swithOn/swithOff methods instead
     '''
     def changeColor(self):
-        if ( self.state == "OFF"):
+        if ( self.state == Led.STATE_OFF):
             self.img = ImageTk.PhotoImage(Led.imageOn)
             self.label.configure(image=self.img)
-            self.state = "ON"
-        elif ( self.state == "ON"):
+            self.state = Led.STATE_ON
+        elif ( self.state == Led.STATE_ON):
             self.img = ImageTk.PhotoImage(Led.imageOff)
             self.label.configure(image=self.img)
-            self.state = "OFF"
+            self.state = Led.STATE_OFF
         else:
             raise Exception('Unknow led state')
     '''

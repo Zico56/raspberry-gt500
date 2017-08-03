@@ -1,3 +1,6 @@
+from tkinter import *
+fenetre = Tk()
+
 ################# CONFIG #################
 import logging
 import logging.config
@@ -7,28 +10,28 @@ from Configuration import config
 from Configuration import testMode
 ##########################################
 
+######################## TEST MODE ########################
+logging.info("GPIO Emulator: " + str(testMode))
+if(testMode):
+    from emulator.GPIOEmulator import App
+    app = App()
+###########################################################
 
-from tkinter import *
+import time
 from PIL import Image, ImageTk
 from Led import Led
-from emulator.GPIOEmulator import App
 from features.GenericFeature import *
+from features.ShiftRegister import register
 
 def createImage(imgPath):
     image = Image.open(imgPath)
     photoImage = ImageTk.PhotoImage(image)
     return photoImage
 
-fenetre = Tk()
+
 fenetre.wm_title("Rasperry GT500")
 #fenetre.overrideredirect(1) # ==> Window without title and border
-
-######################## TEST MODE ########################
-logging.info("GPIO Emulator: " + str(testMode))
-if(testMode):
-    App()
-###########################################################
-
+#fenetre.attributes('-fullscreen', 1)
 
 # Init. frames
 topFrame = Frame(fenetre, bg="black", bd=0)
@@ -46,6 +49,9 @@ canvas.pack()
 # Panel for led and indicator
 horizontalPW = PanedWindow(bottomFrame, orient=HORIZONTAL, bg="black")
 horizontalPW.pack()
+
+#Init register
+register.start()
 
 # Adding feature
 nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
@@ -75,17 +81,19 @@ for x in range(1, nbOfFeaturesMax+1):
         nbOfFeaturesSet+=1
 
 # Configuring window size        
-width = nbOfFeaturesSet*65   
-if (width < 300):
-    width = 300       
-fenetre.geometry('%dx%d+%d+%d' % (width, 295, 0, 0))
+#width = nbOfFeaturesSet*65   
+#if (width < 300):
+#    width = 300       
+fenetre.geometry('%dx%d+%d+%d' % (800, 480, 0, 0))
 
 try:
     fenetre.mainloop()
-
 except Exception as ex:
     traceback.print_exc()
+    logging.error(ex)
 finally:
+    register.stop()
+    #time.sleep(2)
     GPIO.cleanup() #this ensures a clean exit
     
 

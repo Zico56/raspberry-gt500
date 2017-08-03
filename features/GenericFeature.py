@@ -33,6 +33,7 @@ class GenericFeature:
     
     def __init__(self, parent, configSection):
         self.parent = parent
+        self.configSection = configSection
         
         # Default feature state is OFF
         self.state = GenericFeature.STATE_OFF
@@ -61,7 +62,7 @@ class GenericFeature:
             self.indicator.swithOff() 
             self.state = GenericFeature.STATE_OFF
         else:
-            raise Exception('Unknow feature state: ' + self.state)
+            raise Exception('Unknown feature state: ' + self.state)
         
     def setBinding(self):
         #if (testMode):

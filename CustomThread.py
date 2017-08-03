@@ -1,4 +1,5 @@
 import threading
+import logging
 
 class CustomThread(threading.Thread):
     def __init__(self, function):
@@ -6,6 +7,12 @@ class CustomThread(threading.Thread):
         self.event = threading.Event()
         self.function = function
 
-    def run(self):  
-        while not self.event.is_set():
-            self.function()
+    def run(self): 
+        logging.info("Custom thread start") 
+        try:
+            while not self.event.is_set():
+                self.function()
+        except Exception as ex:
+            print("Error in thread: " + ex.message)
+        finally:
+            logging.info("Custom thread end") 
