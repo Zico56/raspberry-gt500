@@ -6,7 +6,7 @@ from features.GenericFeature import *
 class AudioPlayer(GenericFeature):
 
     # Path to track to play
-    path = config.get('PLAYER', 'PATH')
+    path = config.get('AUDIO', 'PATH')
 
     def __init__(self, parent, configSection):
         super().__init__(parent, configSection)
@@ -21,9 +21,6 @@ class AudioPlayer(GenericFeature):
     def stop(self):
         logging.info("Audio player stop")
         pygame.mixer.music.stop()
-    
-    def setBinding(self):
-        super().setBinding()
 
 '''
 import os

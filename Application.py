@@ -12,7 +12,7 @@ from Configuration import testMode
 
 ######################## TEST MODE ########################
 logging.info("GPIO Emulator: " + str(testMode))
-if(testMode):
+if (testMode):
     from emulator.GPIOEmulator import App
     app = App()
 ###########################################################
@@ -30,8 +30,9 @@ def createImage(imgPath):
 
 
 fenetre.wm_title("Rasperry GT500")
-fenetre.overrideredirect(1) # ==> Window without title and border
-fenetre.attributes('-fullscreen', 1)
+if not testMode:
+    fenetre.overrideredirect(1) # ==> Window without title and border
+    fenetre.attributes('-fullscreen', 1)
 
 # Init. frames
 topFrame = Frame(fenetre, bg="black", bd=0)
@@ -67,21 +68,17 @@ def getlist(option, sep=','):
 #######################################
 
 windowWidth = 800
-paneWidth = (800-30)//7
+paneWidth = (windowWidth-30)//7
 for x in range(1, nbOfFeaturesMax+1):
    
     configSection = 'FEATURE_' + str(x)
-    if(config.has_section(configSection)):
-    
-        #gpioList = getlist(config.get(configSection, 'GPIO_INPUT'))
-        #for gpio in gpioList:        
+    if(config.has_section(configSection)):      
         imgFrame = Frame(horizontalPW, bg="black", bd=0, width=paneWidth)
         imgFrame.pack_propagate(False)  
         horizontalPW.add(imgFrame)
     
         feature = GenericFeature(imgFrame, configSection)     
-        nbOfFeaturesSet+=1
-
+        nbOfFeaturesSet += 1
 
 # Configuring window size              
 fenetre.geometry('%dx%d+%d+%d' % (800, 480, 0, 0))
