@@ -48,7 +48,7 @@ canvas.pack()
 
 # Panel for led and indicator
 horizontalPW = PanedWindow(bottomFrame, height=140, orient=HORIZONTAL, bg="black")
-horizontalPW.pack(fill='both', expand=True)
+horizontalPW.pack(expand=True)
 
 #Init register
 register.start()
@@ -56,8 +56,6 @@ register.start()
 # Adding feature
 nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
 nbOfFeaturesSet = 0
-
-
 
 #######################################
 def getlist(option, sep=','):
@@ -68,6 +66,8 @@ def getlist(option, sep=','):
     return list
 #######################################
 
+windowWidth = 800
+paneWidth = (800-30)//7
 for x in range(1, nbOfFeaturesMax+1):
    
     configSection = 'FEATURE_' + str(x)
@@ -75,17 +75,15 @@ for x in range(1, nbOfFeaturesMax+1):
     
         #gpioList = getlist(config.get(configSection, 'GPIO_INPUT'))
         #for gpio in gpioList:        
-        imgFrame = Frame(horizontalPW, bg="black", bd=0)
-        imgFrame.pack()    
+        imgFrame = Frame(horizontalPW, bg="black", bd=0, width=paneWidth)
+        imgFrame.pack_propagate(False)  
         horizontalPW.add(imgFrame)
     
         feature = GenericFeature(imgFrame, configSection)     
         nbOfFeaturesSet+=1
 
-# Configuring window size        
-#width = nbOfFeaturesSet*65   
-#if (width < 300):
-#    width = 300       
+
+# Configuring window size              
 fenetre.geometry('%dx%d+%d+%d' % (800, 480, 0, 0))
 
 try:
