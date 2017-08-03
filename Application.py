@@ -37,18 +37,18 @@ fenetre.wm_title("Rasperry GT500")
 topFrame = Frame(fenetre, bg="black", bd=0)
 topFrame.pack(side=TOP, fill='both', expand=True)
 
-bottomFrame = Frame(fenetre, bg="black", bd=0)
+bottomFrame = Frame(fenetre, bg="blue", bd=0)
 bottomFrame.pack(side=BOTTOM, fill='both', expand=True)
 
 # Background image
 imgBg = createImage(config.get('APPLICATION', 'BKGND_IMG'))
-canvas = Canvas(topFrame, width=350, height=200, bg="black", highlightthickness=0)
+canvas = Canvas(topFrame, width=600, height=340, bg="black", highlightthickness=0)
 canvas.create_image(0, 0, anchor=NW, image=imgBg)
 canvas.pack()
 
 # Panel for led and indicator
-horizontalPW = PanedWindow(bottomFrame, orient=HORIZONTAL, bg="black")
-horizontalPW.pack()
+horizontalPW = PanedWindow(bottomFrame, height=140, orient=HORIZONTAL, bg="black")
+horizontalPW.pack(fill='both', expand=True)
 
 #Init register
 register.start()
@@ -56,6 +56,8 @@ register.start()
 # Adding feature
 nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
 nbOfFeaturesSet = 0
+
+
 
 #######################################
 def getlist(option, sep=','):

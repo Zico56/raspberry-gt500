@@ -29,7 +29,7 @@ class Gallery(GenericFeature):
 
     # Overrided methods   
     def start(self):
-        self.panel.place(relx=0.5, rely=0.4, anchor=CENTER)
+        self.panel.place(relx=0.5, rely=0.3, anchor=CENTER)
         self.panel.focus_set()
         
     def stop(self):
@@ -114,7 +114,7 @@ class Gallery(GenericFeature):
         print("stop demo mode")        
     '''
     def displayPanelImage(self):
-        size = 150,150
+        size = 600,370
         image = Image.open(self.galleryPath + self.currentImage)
         image.thumbnail(size,Image.ANTIALIAS)
         img = ImageTk.PhotoImage(image)
@@ -131,6 +131,9 @@ class Gallery(GenericFeature):
     
     def setImageToDisplay(self, rank):
         fileList = listdir(self.galleryPath)
+        for file in fileList:
+            if not file.endswith(".jpg"):
+                fileList.remove(file)
         
         if (self.currentImage == None):
             fileIdx = 0 
@@ -145,9 +148,3 @@ class Gallery(GenericFeature):
                     break
 
         self.currentImage = fileList[fileIdx]
-        
-        #for file in listdir(self.galleryPath):
-            #print(isfile(join(self.galleryPath, f)))
-            #print(str(f))
-            #extension = splitext(f)[1]
-            #print("extension:" + extension)
