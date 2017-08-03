@@ -173,12 +173,11 @@ class ShiftRegister():
     def _74hc595(self):
         # Display template for leds
         self.setTemplate()
-        '''
+        
         self.setRegisterOutput()
         self.displayRegisterOutput()
             
         # Time out delay between two sequence of the led template
-        '''
         sleeptime = 0.5
         time.sleep(sleeptime)     
 
