@@ -30,8 +30,8 @@ def createImage(imgPath):
 
 
 fenetre.wm_title("Rasperry GT500")
-#fenetre.overrideredirect(1) # ==> Window without title and border
-#fenetre.attributes('-fullscreen', 1)
+fenetre.overrideredirect(1) # ==> Window without title and border
+fenetre.attributes('-fullscreen', 1)
 
 # Init. frames
 topFrame = Frame(fenetre, bg="black", bd=0)
