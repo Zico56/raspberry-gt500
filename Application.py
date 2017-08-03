@@ -37,7 +37,7 @@ fenetre.wm_title("Rasperry GT500")
 topFrame = Frame(fenetre, bg="black", bd=0)
 topFrame.pack(side=TOP, fill='both', expand=True)
 
-bottomFrame = Frame(fenetre, bg="blue", bd=0)
+bottomFrame = Frame(fenetre, bg="black", bd=0)
 bottomFrame.pack(side=BOTTOM, fill='both', expand=True)
 
 # Background image
