@@ -15,7 +15,7 @@ class VideoPlayer(GenericFeature):
     def start(self):
         logging.info("Video player start")
         if not testMode:
-            omxc = Popen(['omxplayer', '-b', movie1])
+            omxc = Popen(['omxplayer', '-b', self.path])
              
     def stop(self):
         logging.info("Video player stop")
