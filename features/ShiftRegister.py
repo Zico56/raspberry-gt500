@@ -33,33 +33,7 @@ lightModulesMask = {
 }
 NO_LIGHT = 0x0000
 
-'''
-NO_LIGHTS       = 0x0000
-
-# Left head & tail turn indicator
-INDICATOR_LEFT  = 0x000f # TODO: turn sequence
-
-# Right head & tail turn indicators
-INDICATOR_RIGHT = 0x00f0 # TODO: turn sequence
-
-# Warning head & tail indicators
-INDICATOR_BOTH  = 0x00ff
-
-# Fog lights
-FOG_LIGHTS      = 0x0100
-
-# Lateral position lights and left/right front turn indicators
-POSITION_LIGHTS = 0x0288
-
-# Head lights / Tail lights / License plate / Dashboard
-MAIN_LIGHTS     = 0x3C00  
-
-# Roof lights
-ROOF_LIGHT      = 0x4000
-'''
-
-class ShiftRegister():
-     
+class ShiftRegister():   
      
 ################## Output bits ##################
 # 01 : head left position/turn indicator    (x1)
@@ -167,7 +141,8 @@ class ShiftRegister():
                     ledMask = ledMask[seqIdx]
                     lightModulesSeqIdx[idxKey] = seqIdx
 
-                self.ledTemplate = self.ledTemplate | ledMask
+                self.ledTemplate = self.ledTemplate ^ ledMask
+                print(bin(self.ledTemplate))
     
     def _74hc595(self):
         # Display template for leds
