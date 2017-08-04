@@ -1,8 +1,12 @@
 import logging
-from subprocess import Popen
+import threading
+import time
 from Configuration import config
 from Configuration import testMode
 from features.GenericFeature import *
+
+if not testMode:
+    from omxplayer import OMXPlayer
 
 class VideoPlayer(GenericFeature):
 
@@ -15,9 +19,18 @@ class VideoPlayer(GenericFeature):
     def start(self):
         logging.info("Video player start")
         if not testMode:
-            omxc = Popen(['omxplayer', '-b', self.path])
+            self.player = OMXPlayer(self.path)
+            self.thread = threading.Thread(target=self.checkEnd)
+            self.thread.start()  
              
     def stop(self):
         logging.info("Video player stop")
         if not testMode:
-            os.system('killall omxplayer.bin')
+            self.player.quit()
+
+    def checkEnd(self):
+        while player.is_playing:
+            time.sleep(1)  
+        self.state = GenericFeature.STATE_OFF
+        self.indicator.swithOff()
+    
