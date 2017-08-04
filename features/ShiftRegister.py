@@ -82,7 +82,6 @@ class ShiftRegister():
         self.displayRegisterOutput()
         
         for lightModule in lightModules:  
-            #lightModulesStatus[lightModule] = False
             lightModulesMode[lightModule] = 0
             
     def setRegisterOutput(self):
@@ -111,11 +110,9 @@ class ShiftRegister():
         self.thread.event.set()  
        
     def setLightModule(self, lightModule, moduleMode):
-        #lightModulesStatus[lightModule] = True
         lightModulesMode[lightModule] = moduleMode
     
     def unsetLightModule(self, lightModule):
-        #lightModulesStatus[lightModule] = False
         lightModulesMode[lightModule] = 0
         
     def setTemplate(self):
@@ -142,7 +139,6 @@ class ShiftRegister():
                     lightModulesSeqIdx[idxKey] = seqIdx
 
                 self.ledTemplate = self.ledTemplate ^ ledMask
-                print(bin(self.ledTemplate))
     
     def _74hc595(self):
         # Display template for leds

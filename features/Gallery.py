@@ -6,6 +6,7 @@ from PIL import Image, ImageTk
 from os import listdir
 from os.path import isfile, join, splitext
 from features.GenericFeature import *
+from CustomThread import *
 from Configuration import config
 
 class Gallery(GenericFeature):
@@ -31,9 +32,13 @@ class Gallery(GenericFeature):
     def start(self):
         self.panel.place(relx=0.5, rely=0.3, anchor=CENTER)
         self.panel.focus_set()
+        self.thread = CustomThread(self.scrollImage)
+        self.thread.event.clear()
+        self.thread.start()
         
     def stop(self):
         self.panel.place_forget()
+        self.thread.event.set()  
 
     # Class methods
     def createGalleryPanel(self):
@@ -55,9 +60,9 @@ class Gallery(GenericFeature):
         self.displayPanelImage()
         
         # panel construction
-        self.panel.add(self.labelLeft)
+        #self.panel.add(self.labelLeft)
         self.panel.add(self.labelImage)       
-        self.panel.add(self.labelRight)
+        #self.panel.add(self.labelRight)
         self.panel.bind("<Key>", self.callback)
         self.panel.bind("<KeyRelease>", self.callback)
         
@@ -73,8 +78,6 @@ class Gallery(GenericFeature):
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
                 self.showNextImage()
-            elif (event.keysym == "Up"):
-                print("up")
         elif (event.type == "3"):
             if (event.keysym == "Left"):
                 imgLeft = ImageTk.PhotoImage(self.leftImgOff)
@@ -84,35 +87,7 @@ class Gallery(GenericFeature):
                 imgRight = ImageTk.PhotoImage(self.rightImgOff)
                 self.labelRight.configure(image=imgRight)
                 self.labelRight.image = imgRight
-        
-        '''
-        #test demo mode
-        if (self.t is None):
-            self.pill2kill = threading.Event()
-            self.t = threading.Thread(target=self.demoMode, args=(self.pill2kill,))
-            print("thread not alive")
-            print("starting thread")
-            self.t.start()
-        else:
-            print("alive: " + str(self.t.isAlive()))
-            print("thread alive")
-            time.sleep(2)
-            print("killing thread")
-            self.pill2kill.set()
-            self.t.join()
-            self.t = None
-        '''
-    
-    '''   
-    def demoMode(self):
-        self.thread = CustomThread(self._74hc595)
-        self.thread.start()
-        t = threading.currentThread()
-        while not stop_event.wait(1):
-            print("demo mode")
-        time.sleep(1)
-        print("stop demo mode")        
-    '''
+            
     def displayPanelImage(self):
         size = 600,370
         image = Image.open(self.galleryPath + self.currentImage)
@@ -120,6 +95,10 @@ class Gallery(GenericFeature):
         img = ImageTk.PhotoImage(image)
         self.labelImage.configure(image=img)
         self.labelImage.image = img 
+    
+    def scrollImage(self):
+        self.showNextImage()
+        time.sleep(2)
     
     def showNextImage(self):
         self.setImageToDisplay(1)
