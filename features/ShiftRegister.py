@@ -168,7 +168,6 @@ class ShiftRegister():
                     lightModulesSeqIdx[idxKey] = seqIdx
 
                 self.ledTemplate = self.ledTemplate | ledMask
-                print(bin(self.ledTemplate))
     
     def _74hc595(self):
         # Display template for leds
