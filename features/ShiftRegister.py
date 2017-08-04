@@ -24,7 +24,7 @@ lightModulesMask = {
         1: 0x0100
     }, 
     'POSITION_LIGHTS': {
-        1: 0x0288
+        1: 0x0211
     }, 
     'MAIN_LIGHTS': {
         1: 0x3C00,
