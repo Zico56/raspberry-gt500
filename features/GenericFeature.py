@@ -2,7 +2,6 @@ import logging
 from importlib import import_module
 from Configuration import config
 from Configuration import testMode
-from Led import Led
 from Indicator import Indicator
 
 ################# Raspberry / Emulator mode #################
@@ -38,9 +37,6 @@ class GenericFeature:
         # Default feature state is OFF
         self.state = GenericFeature.STATE_OFF
         
-        # Led initialization
-        #self.led = Led(parent)
-        
         # Indicator initialization
         indicImgOnPath = self.featureOptions['INDIC_ON_IMG']
         indicImgOffPath = self.featureOptions['INDIC_OFF_IMG']        
@@ -53,20 +49,16 @@ class GenericFeature:
     def processEvent(self, event):
         if (self.state == GenericFeature.STATE_OFF):
             self.start()
-            #self.led.swithOn()
             self.indicator.swithOn() 
             self.state = GenericFeature.STATE_ON
         elif (self.state == GenericFeature.STATE_ON):
             self.stop()
-            #self.led.swithOff() 
             self.indicator.swithOff() 
             self.state = GenericFeature.STATE_OFF
         else:
             raise Exception('Unknown feature state: ' + self.state)
         
     def setBinding(self):
-        #if (testMode):
-        #self.led.label.bind("<Button-1>", self.processEvent)
         self.indicator.label.bind("<Button-1>", self.processEvent)
     
         self.channelIn = self.featureOptions['GPIO_INPUT']        

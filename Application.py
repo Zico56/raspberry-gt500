@@ -19,7 +19,6 @@ if (testMode):
 
 import time
 from PIL import Image, ImageTk
-from Led import Led
 from features.GenericFeature import *
 from features.ShiftRegister import register
 
