@@ -1,9 +1,9 @@
 import pygame
 import logging
 from Configuration import config
-from features.GenericFeature import *
+from features.GpioFeature import *
 
-class AudioPlayer(GenericFeature):
+class AudioPlayer(GpioFeature):
 
     # Path to track to play
     path = config.get('AUDIO', 'PATH')
@@ -16,30 +16,10 @@ class AudioPlayer(GenericFeature):
 
     def start(self):
         logging.info("Audio player start")
+        super().start()
         pygame.mixer.music.play()
         
     def stop(self):
         logging.info("Audio player stop")
+        super().stop()
         pygame.mixer.music.stop()
-
-'''
-import os
-def playpause():
-    movie.pause()
- 
-root = Tk()
-embed = Frame(root, width=640, height=480)
-embed.grid(row=0,column=0)
-playpausebutton=Button(root, command=playpause, text="Play/Pause")
-playpausebutton.grid(row=1,column=0)
- 
-os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
-os.environ['SDL_VIDEODRIVER'] = 'windib'
- 
-pygame.display.init()
-screen = pygame.display.set_mode((640,480))
-movie = pygame.movie.Movie('video/sample/mp4')
- 
-movie.play()
-root.mainloop()
-'''
