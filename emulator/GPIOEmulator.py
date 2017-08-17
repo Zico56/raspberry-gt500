@@ -12,27 +12,27 @@ isExtendedGpio = config.getboolean('TESTING', 'gpio.extended')
 if (isExtendedGpio):
     GPIONames=["14","15","18","23","24","25","8","7","12","16","20","21","2","3","4","17","27","22","10","9","11","5","6","13","19","26"]
 else:
-    GPIONames=["14","15","18","23","24","25","8","7","2","3","4","17","27","22","10","9","11"]
+    GPIONames=[14,15,18,23,24,25,8,7,2,3,4,17,27,22,10,9,11]
     
 def buttonClick(self):
-    channel = (self.widget.config('command')[-1])
+    channel = int(str(self.widget.config('command')[-1]))
     global dictionaryPinsTkinter
-    objBtn = dictionaryPinsTkinter[str(channel)]
+    objBtn = dictionaryPinsTkinter[channel]
     objBtn["text"] = "GPIO" + str(channel) + "\nIN=" + str(PIN.UP)
     objBtn.callback(self)
 
 def buttonRelease(self):
-    channel = (self.widget.config('command')[-1])
+    channel = int(str(self.widget.config('command')[-1]))
     global dictionaryPinsTkinter
-    objBtn = dictionaryPinsTkinter[str(channel)]
+    objBtn = dictionaryPinsTkinter[channel]
     objBtn["text"] = "GPIO" + str(channel) + "\nIN=" + str(PIN.DWN)
  
 def drawGPIOIn(gpioID):
     global dictionaryPins
     global dictionaryPinsTkinter
     
-    objPin = dictionaryPins[str(gpioID)]
-    objBtn = dictionaryPinsTkinter[str(gpioID)]  
+    objPin = dictionaryPins[gpioID]
+    objBtn = dictionaryPinsTkinter[gpioID]  
     
     objBtn.configure(relief='raised')
     objBtn.configure(bd="1px")
@@ -42,8 +42,8 @@ def drawGPIOOut(gpioID):
     global dictionaryPins
     global dictionaryPinsTkinter
 
-    objPin = dictionaryPins[str(gpioID)]
-    objBtn = dictionaryPinsTkinter[str(gpioID)]  
+    objPin = dictionaryPins[gpioID]
+    objBtn = dictionaryPinsTkinter[gpioID]  
 
     if (objPin.mode != PIN.OUT):
         raise Exception("GPIO_" + str(gpioID) + " should be set as an output.")
@@ -82,52 +82,52 @@ class App():
         pin6label.grid(row=0, column=2, padx=(10, 10))
         
         #GPIO14
-        pin8btn = Button(self.root, text="GPIO14\nOUT=0", command="14", padx ="1px", pady="1px", bd="1px", fg="blue", activebackground="slategray")
+        pin8btn = Button(self.root, text="GPIO14\nOUT=0", command=14, padx ="1px", pady="1px", bd="1px", fg="blue", activebackground="slategray")
         pin8btn.grid(row=0, column=3, padx=(10, 10),pady=(5,5))
-        dictionaryPinsTkinter["14"] = pin8btn
+        dictionaryPinsTkinter[14] = pin8btn
    
         #GPIO15
-        pin10btn = Button(self.root, text="GPIO15\nOUT=0", command="15", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin10btn = Button(self.root, text="GPIO15\nOUT=0", command=15, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin10btn.grid(row=0, column=4, padx=(10, 10))
-        dictionaryPinsTkinter["15"] = pin10btn
+        dictionaryPinsTkinter[15] = pin10btn
  
         #GPIO18
-        pin12btn = Button(self.root, text="GPIO18\nOUT=0", command="18",  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin12btn = Button(self.root, text="GPIO18\nOUT=0", command=18,  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin12btn.grid(row=0, column=5, padx=(10, 10))
-        dictionaryPinsTkinter["18"] = pin12btn
+        dictionaryPinsTkinter[18] = pin12btn
         
         #GND
         pin14label = Label(self.root, text="GND", fg="black")
         pin14label.grid(row=0, column=6, padx=(10, 10))
 
         #GPIO23
-        pin16btn = Button(self.root, text="GPIO23\nOUT=0", command="23", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin16btn = Button(self.root, text="GPIO23\nOUT=0", command=23, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin16btn.grid(row=0, column=7, padx=(10, 10))
-        dictionaryPinsTkinter["23"] = pin16btn
+        dictionaryPinsTkinter[23] = pin16btn
 
         #GPIO24
-        pin18btn = Button(self.root, text="GPIO24\nOUT=0",command="24",  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin18btn = Button(self.root, text="GPIO24\nOUT=0",command=24,  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin18btn.grid(row=0, column=8, padx=(10, 10))
-        dictionaryPinsTkinter["24"] = pin18btn
+        dictionaryPinsTkinter[24] = pin18btn
       
         #GND
         pin20label = Label(self.root, text="GND", fg="black")
         pin20label.grid(row=0, column=9, padx=(10, 10))
 
         #GPIO25
-        pin22btn = Button(self.root, text="GPIO25\nOUT=0", command="25", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin22btn = Button(self.root, text="GPIO25\nOUT=0", command=25, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin22btn.grid(row=0, column=10, padx=(10, 10))
-        dictionaryPinsTkinter["25"] = pin22btn
+        dictionaryPinsTkinter[25] = pin22btn
         
         #GPIO08
-        pin24btn = Button(self.root, text="GPIO8\nOUT=0", command="8", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin24btn = Button(self.root, text="GPIO8\nOUT=0", command=8, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin24btn.grid(row=0, column=11, padx=(10, 10))
-        dictionaryPinsTkinter["8"] = pin24btn
+        dictionaryPinsTkinter[8] = pin24btn
 
         #GPIO07
-        pin26btn = Button(self.root, text="GPIO7\nOUT=0", command="7",  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin26btn = Button(self.root, text="GPIO7\nOUT=0", command=7,  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin26btn.grid(row=0, column=12, padx=(10, 10))
-        dictionaryPinsTkinter["7"] = pin26btn
+        dictionaryPinsTkinter[7] = pin26btn
 
         if (isExtendedGpio):
             #ID_SC
@@ -169,57 +169,57 @@ class App():
         pin1label.grid(row=1, column=0, padx=(10, 10), pady=(5,5))
 
         #GPIO02
-        pin03btn = Button(self.root, text="GPIO2\nOUT=0",command="2", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin03btn = Button(self.root, text="GPIO2\nOUT=0",command=2, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin03btn.grid(row=1, column=1, padx=(10, 10),pady=(5,5))
-        dictionaryPinsTkinter["2"] =pin03btn
+        dictionaryPinsTkinter[2] =pin03btn
 
         #GPIO03
-        pin05btn = Button(self.root, text="GPIO3\nOUT=0", command="3", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin05btn = Button(self.root, text="GPIO3\nOUT=0", command=3, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin05btn.grid(row=1, column=2, padx=(10, 10))
-        dictionaryPinsTkinter["3"] = pin05btn
+        dictionaryPinsTkinter[3] = pin05btn
 
         #GPIO04
-        pin07btn = Button(self.root, text="GPIO4\nOUT=0", command="4", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin07btn = Button(self.root, text="GPIO4\nOUT=0", command=4, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin07btn.grid(row=1, column=3, padx=(10, 10))
-        dictionaryPinsTkinter["4"] = pin07btn
+        dictionaryPinsTkinter[4] = pin07btn
 
         #GND
         pin09label = Label(self.root, text="GND", fg="black")
         pin09label.grid(row=1, column=4, padx=(10, 10))
 
         #GPIO17
-        pin11btn = Button(self.root, text="GPIO17\nOUT=0", command="17", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin11btn = Button(self.root, text="GPIO17\nOUT=0", command=17, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin11btn.grid(row=1, column=5, padx=(10, 10))
-        dictionaryPinsTkinter["17"] = pin11btn
+        dictionaryPinsTkinter[17] = pin11btn
 
         #GPIO27
-        pin13btn = Button(self.root, text="GPIO27\nOUT=0", command="27", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin13btn = Button(self.root, text="GPIO27\nOUT=0", command=27, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin13btn.grid(row=1, column=6, padx=(10, 10))
-        dictionaryPinsTkinter["27"] = pin13btn
+        dictionaryPinsTkinter[27] = pin13btn
 
         #GPIO22
-        pin15btn = Button(self.root, text="GPIO22\nOUT=0", command="22", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin15btn = Button(self.root, text="GPIO22\nOUT=0", command=22, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin15btn.grid(row=1, column=7, padx=(10, 10))
-        dictionaryPinsTkinter["22"] = pin15btn
+        dictionaryPinsTkinter[22] = pin15btn
 
         #3V3
         pin17label = Label(self.root, text="3V3", fg="dark orange")
         pin17label.grid(row=1, column=8, padx=(10, 10))
 
         #GPIO10
-        pin19btn = Button(self.root, text="GPIO10\nOUT=0", command="10",  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin19btn = Button(self.root, text="GPIO10\nOUT=0", command=10,  padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin19btn.grid(row=1, column=9, padx=(10, 10))
-        dictionaryPinsTkinter["10"] = pin19btn
+        dictionaryPinsTkinter[10] = pin19btn
 
         #GPIO09
-        pin21btn = Button(self.root, text="GPIO9\nOUT=0", command="9", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin21btn = Button(self.root, text="GPIO9\nOUT=0", command=9, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin21btn.grid(row=1, column=10, padx=(10, 10))
-        dictionaryPinsTkinter["9"] = pin21btn
+        dictionaryPinsTkinter[9] = pin21btn
 
         #GPIO11
-        pin23btn = Button(self.root, text="GPIO11\nOUT=0", command="11", padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
+        pin23btn = Button(self.root, text="GPIO11\nOUT=0", command=11, padx ="1px", pady="1px", bd="0px", fg="blue", activebackground="slategray")
         pin23btn.grid(row=1, column=11, padx=(10, 10))
-        dictionaryPinsTkinter["11"] = pin23btn
+        dictionaryPinsTkinter[11] = pin23btn
 
         #GND
         pin25label = Label(self.root, text="GND", fg="black")
@@ -308,7 +308,7 @@ class GPIO:
     '''
     
     def checkChannelSetUpAndMode(channel, mode):
-        channel = str(channel)
+        #channel = str(channel)
         
         global dictionaryPins
         if channel not in dictionaryPins:
@@ -336,11 +336,11 @@ class GPIO:
         #GPIO.checkModeValidator()
 
         #check if provided channel exists		
-        if str(channel) not in GPIONames:
+        if channel not in GPIONames:
             raise Exception('GPIO ' + str(channel) + ' does not exist')
 
         #check if channel is already setup
-        if str(channel) in dictionaryPins:
+        if channel in dictionaryPins:
             raise Exception('GPIO is already setup')
 
         #Set GPIO pin as an output (default OUT 0)
@@ -350,7 +350,7 @@ class GPIO:
             #    objTemp.Out = "1"
             objTemp.Out = "0"
                 
-            dictionaryPins[str(channel)] = objTemp
+            dictionaryPins[channel] = objTemp
             drawGPIOOut(channel)
             
         #Set GPIO pin as an input
@@ -366,11 +366,11 @@ class GPIO:
                 objTemp.In = "1"
             '''
             
-            dictionaryPins[str(channel)] = objTemp
+            dictionaryPins[channel] = objTemp
             drawGPIOIn(channel)
             
     def output(channel, outmode):
-        channel = str(channel)
+        #channel = str(channel)
         GPIO.checkChannelSetUpAndMode(channel, PIN.OUT)
         #GPIO.checkModeValidator()
                 
@@ -385,7 +385,7 @@ class GPIO:
             objBtn.configure(background='DarkGreen')
 
     def input(channel):        
-        channel = str(channel)
+        #channel = str(channel)
         #GPIO.checkModeValidator()        
         GPIO.checkChannelSetUpAndMode(channel, PIN.IN)
 
@@ -399,7 +399,7 @@ class GPIO:
         
     def add_event_detect(channel, edge, callback, bouncetime):
         global dictionaryPinsTkinter
-        objBtn = dictionaryPinsTkinter[str(channel)]
+        objBtn = dictionaryPinsTkinter[channel]
         objBtn.bind("<Button-1>", buttonClick)
         objBtn.bind("<ButtonRelease-1>", buttonRelease)
         objBtn.callback = callback    
