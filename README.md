@@ -35,23 +35,23 @@ gpio27 (P2)   : input  : warning lights
 gpio22 (P3)   : output : warning lights
 
 ######## BCM ######## : ### Cobbler Pin ### : ## Test ##
-# gpio02 (I2C : SDA)  : SDA                 : KO (already set)
-# gpio03 (I2C : SCL)  : SCL                 : KO (already set)
-# gpio04              : P7                  : OK
-# gpio07 (SPI : CE1)  : CE1                 : KO (legere lumiere)
-# gpio08 (SPI : CE0)  : CE0                 : KO (legere lumiere)
+# gpio02 (I2C : SDA)  : SDA                 : LCD screen
+# gpio03 (I2C : SCL)  : SCL                 : Power function (on) + LCD screen
+# gpio04              : P7                  : Power function (off)
+# gpio07 (SPI : CE1)  : CE1                 : Video OUT (button led)
+# gpio08 (SPI : CE0)  : CE0                 : Video IN (signal)
 # gpio09 (SPI : MISO) : MISO                : OK
 # gpio10 (SPI : MOSI) : MOSI                : OK
 # gpio11 (SPI : CLK)  : SCLK                : OK
-# gpio14 (UART : TXD) : TXD                 : KO (already set)
-# gpio15 (UART : RXD) : RXD                 : KO (legere lumiere)
-# gpio17              : P0                  : OK
-# gpio18 (PWM)        : P1                  : OK
-# gpio22              : P3                  : OK
-# gpio23              : P4                  : OK
-# gpio24              : P5                  : OK
-# gpio25              : P6                  : OK
-# gpio27              : P2                  : OK
+# gpio14 (UART : TXD) : TXD                 : OK
+# gpio15 (UART : RXD) : RXD                 : OK
+# gpio17              : P0                  : Shift register SDI
+# gpio18 (PWM)        : P1                  : Shift register RCLK
+# gpio22              : P3                  : Gallery IN (signal)
+# gpio23              : P4                  : Gallery OUT (button led)
+# gpio24              : P5                  : Audio IN (signal)
+# gpio25              : P6                  : Audio OUT (button led)
+# gpio27              : P2                  : Shift register SRCLK
 
 
 ######### 74HC595 Mapping #########
