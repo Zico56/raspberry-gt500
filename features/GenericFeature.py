@@ -59,16 +59,8 @@ class GenericFeature:
             raise Exception('Unknown feature state: ' + self.state)
         
     def setBinding(self):
+        # Mouse event binding
         self.indicator.label.bind("<Button-1>", self.processEvent)
-    
-        self.channelIn = self.featureOptions['GPIO_INPUT']        
-        if (self.channelIn == None) or (self.channelIn == ''):
-            raise Exception("No GPIO input defined.")            
-        self.channelIn = int(self.channelIn)
-        logging.info("Configuring GPIO_" + str(self.channelIn) + " as an input.")
-        
-        GPIO.setup(self.channelIn, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.add_event_detect(self.channelIn, GPIO.RISING, callback=self.processEvent, bouncetime=75)
 
     # Methods that will be overrided by child classes    
     def start(self):

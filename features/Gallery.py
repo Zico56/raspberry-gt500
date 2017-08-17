@@ -5,11 +5,11 @@ from tkinter import *
 from PIL import Image, ImageTk
 from os import listdir
 from os.path import isfile, join, splitext
-from features.GenericFeature import *
+from features.GpioFeature import *
 from CustomThread import *
 from Configuration import config
 
-class Gallery(GenericFeature):
+class Gallery(GpioFeature):
 
     currentImage = None
 
@@ -30,6 +30,7 @@ class Gallery(GenericFeature):
 
     # Overrided methods   
     def start(self):
+        super().start()
         self.panel.place(relx=0.5, rely=0.3, anchor=CENTER)
         self.panel.focus_set()
         self.thread = CustomThread(self.scrollImage)
@@ -37,6 +38,7 @@ class Gallery(GenericFeature):
         self.thread.start()
         
     def stop(self):
+        super().stop()
         self.panel.place_forget()
         self.thread.event.set()  
 

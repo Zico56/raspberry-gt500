@@ -13,7 +13,18 @@ class ShiftRegisterFeature(GenericFeature):
         self.modeValue = 0
         
     def setBinding(self):
-        super().setBinding()    
+        super().setBinding()   
+        
+        # GPIO input set up
+        self.channelIn = self.featureOptions['GPIO_INPUT']        
+        if (self.channelIn == None) or (self.channelIn == ''):
+            raise Exception("No GPIO input defined.")            
+        logging.info("Configuring GPIO_" + self.channelIn + " as an input.")
+        self.channelIn = int(self.channelIn)
+        GPIO.setup(int(self.channelIn), GPIO.IN)#, pull_up_down=GPIO.PUD_UP)
+        
+        # GPIO event set up
+        GPIO.add_event_detect(self.channelIn, GPIO.RISING, callback=self.processEvent, bouncetime=75)
         
     # Override methods
     def processEvent(self, event):
