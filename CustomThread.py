@@ -13,6 +13,6 @@ class CustomThread(threading.Thread):
             while not self.event.is_set():
                 self.function()
         except Exception as ex:
-            print("Error in thread: " + dir(ex))
+            logging.exception("Error in thread")
         finally:
             logging.info("Custom thread end") 
