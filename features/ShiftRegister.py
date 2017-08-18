@@ -11,7 +11,7 @@ else:
     from RPi import GPIO
 #############################################################
 
-lightModules = ("TURN_INDICATORS","FOG_LIGHTS","POSITION_LIGHTS","MAIN_LIGHTS")
+lightModules = []
 lightModulesSeqIdx = {}
 lightModulesMode = {}
 lightModulesMask = {
@@ -34,26 +34,9 @@ lightModulesMask = {
 NO_LIGHT = 0x0000
 
 class ShiftRegister():   
-     
-################## Output bits ##################
-# 01 : head left position/turn indicator    (x1)
-# 02 : tail left turn indicator #1          (x1)
-# 03 : tail left turn indicator #2          (x1)
-# 04 : tail left turn indicator #3          (x1)
-# 05 : head right position/turn indicator   (x1)
-# 06 : tail right turn indicator #1         (x1)
-# 07 : tail right turn indicator #2         (x1)
-# 08 : tail right turn indicator #3         (x1)
-# 09 : fog lights                           (x2)
-# 10 : lateral position lights              (x4)
-# 11 : tail light                           (x6)
-# 12 : head lights                          (x2)
-# 13 : rear license plate (mutualisable?)   (x2)
-# 14 : dashboard                            (x2)
-# 15 : roof light                           (x1)
-# 16 : N/A
-    
+        
     def __init__(self):
+        logging.info("Initializing shift register 74HC595.")
         self.registerOptions = dict(config.items("SHIFT_REGISTER"))
         
         # Get GPIO port to use from configuration
@@ -110,9 +93,11 @@ class ShiftRegister():
         self.thread.event.set()  
        
     def setLightModule(self, lightModule, moduleMode):
+        lightModules.append(lightModule)
         lightModulesMode[lightModule] = moduleMode
     
     def unsetLightModule(self, lightModule):
+        lightModules.remove(lightModule)
         lightModulesMode[lightModule] = 0
         
     def setTemplate(self):
