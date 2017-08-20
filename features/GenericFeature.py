@@ -4,16 +4,6 @@ from Configuration import config
 from Configuration import testMode
 from Indicator import Indicator
 
-################# Raspberry / Emulator mode #################
-if(testMode):
-    from emulator.GPIOEmulator import GPIO
-else:
-    from RPi import GPIO
-#############################################################
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
 class GenericFeature:
 
     STATE_ON = "ON"
