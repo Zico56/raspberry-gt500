@@ -1,21 +1,27 @@
 from tkinter import *
 fenetre = Tk()
 
-################# CONFIG #################
+######################### CONFIG ##########################
 import logging
 import logging.config
 logging.config.fileConfig('properties/logging.properties') 
 
 from Configuration import config
 from Configuration import testMode
-##########################################
+###########################################################
 
-######################## TEST MODE ########################
+################ Raspberry / Emulator mode ################
 logging.info("GPIO Emulator: " + str(testMode))
 if (testMode):
     from emulator.GPIOEmulator import App
+    from emulator.GPIOEmulator import GPIO
     app = App()
+else:
+    from RPi import GPIO
 ###########################################################
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 import time
 from PIL import Image, ImageTk
@@ -27,6 +33,11 @@ def createImage(imgPath):
     photoImage = ImageTk.PhotoImage(image)
     return photoImage
 
+
+# GPIO for power function
+#gpioStop = config.get('APPLICATION', 'GPIO_STOP')
+#GPIO.setup(int(gpioStop), GPIO.IN)
+#GPIO.output(self.channelOut, GPIO.HIGH)
 
 fenetre.wm_title("Rasperry GT500")
 if not testMode:
