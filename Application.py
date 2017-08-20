@@ -33,11 +33,14 @@ def createImage(imgPath):
     photoImage = ImageTk.PhotoImage(image)
     return photoImage
 
+def shutdown(channel):  
+    logging.info("shutdown")
+    #os.system("sudo shutdown -h now") 
 
 # GPIO for power function
-#gpioStop = config.get('APPLICATION', 'GPIO_STOP')
-#GPIO.setup(int(gpioStop), GPIO.IN)
-#GPIO.output(self.channelOut, GPIO.HIGH)
+gpioStop = int(config.get('APPLICATION', 'GPIO_STOP'))
+GPIO.setup(gpioStop, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(gpioStop, GPIO.FALLING, callback=shutdown, bouncetime=75)
 
 fenetre.wm_title("Rasperry GT500")
 if not testMode:
