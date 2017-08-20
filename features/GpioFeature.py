@@ -9,9 +9,6 @@ else:
     from RPi import GPIO
 #############################################################
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
 class GpioFeature(GenericFeature):
 
     def __init__(self, parent, configSection):

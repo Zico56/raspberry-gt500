@@ -89,6 +89,9 @@ class ShiftRegister():
         self.thread.start()
         
     def stop(self):
+        logging.info("Reset shift register")
+        self.resetRegister()
+        lightModules = []
         logging.info("Stopping 74HC595 thread.")
         self.thread.event.set()  
        
