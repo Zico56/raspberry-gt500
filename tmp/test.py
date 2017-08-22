@@ -1,31 +1,24 @@
-'''
-def mask():
-    dat = 0x32
-    for bit in range(0, 8):	
-        print("data:" + str(bin(dat)) + " | bit:" + str(bit) + " | mask:" + bin(0x80 & (dat << bit)))
-        print("data:" + str(bin(dat)) + " | bit:" + str(bit) + " | mask:" + bin(0x01 & (dat >> bit)))
-        print()
-        #print("data:" + str(bin(dat)) + " | bit:" + str(bit) + " | mask:" + bin(dat & (0x01 << bit)))
-        
-#mask()
+#!/usr/bin/env python
+import LCD1602
+import time
 
-led01 =  0x0001
-led05 =  0x0010
-led09 =  0x0100
-led13 =  0x1000
+def setup():
+    LCD1602.init(0x27, 1)    # init(slave address, background light)
+    LCD1602.write(0, 0, 'CPU Temperature:')
+    LCD1602.write(1, 1, getCPUtemperature())
+    time.sleep(2)
 
-leds = led01 | led05 | led09 | led13
-print(bin(leds))
-print(bin(0x8000))
-'''
+def getCPUtemperature():
+    res = os.popen('vcgencmd measure_temp').readline()
+    return(res.replace("temp=","").replace("'C\n","") + chr(223) + "C")
 
-dict1 = dict()
-dict2 = dict()
+def destroy():
+    pass    
 
-dict2['Y_1'] = 'test1'
-dict1['X_1'] = dict2
-
-print(dict1)
-print(dict1['X_1']['Y_1'])
-#{'X_1': {'Y_1': 'test1'}}
-#test1
+if __name__ == "__main__":
+    try:
+        setup()
+        while True:
+            pass
+    except KeyboardInterrupt:
+        destroy()
