@@ -50,6 +50,23 @@ Project for animating and lighting up a scale modele (Revell Shelby GT500 2010) 
 | 14 | dashboard    | (x2)
 | 15 | roof light   | (x1)
 | 16 | Power light (system)| (x1)
+<<<<<<< Upstream, based on origin/master
+=======
+
+# Wiring
+
+**Power supply**
+![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Power-supply.png?raw=true)
+
+**GPIO input/output**
+![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Pi-GPIO.png?raw=true)
+
+**Shift register**
+![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Shift-register.png?raw=true)
+
+**Led system**
+![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Led-system.png?raw=true)
+>>>>>>> f16a67b README update
 
 # Ideas for additionnal features
 Smoke
