@@ -50,8 +50,6 @@ Project for animating and lighting up a scale modele (Revell Shelby GT500 2010) 
 | 14 | dashboard    | (x2)
 | 15 | roof light   | (x1)
 | 16 | Power light (system)| (x1)
-<<<<<<< Upstream, based on origin/master
-=======
 
 # Wiring
 
@@ -66,7 +64,6 @@ Project for animating and lighting up a scale modele (Revell Shelby GT500 2010) 
 
 **Led system**
 ![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Led-system.png?raw=true)
->>>>>>> f16a67b README update
 
 # Ideas for additionnal features
 Smoke
