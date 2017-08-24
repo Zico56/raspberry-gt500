@@ -1,5 +1,5 @@
 # raspberry-gt500
-Project for animating and lighting up a scale modele (Revell Shelby GT500 2010) with a raspberry pi
+Project for animating and lighting up a scale model (Revell Shelby GT500 2010) with a raspberry pi
 
 # Power supply
 | Component | Voltage |
