@@ -26,18 +26,22 @@ class GpioFeature(GenericFeature):
         GPIO.setup(int(self.channelIn), GPIO.IN, pull_up_down=GPIO.PUD_UP)
         
         # GPIO output set up
-        self.channelOut = self.featureOptions['GPIO_OUTPUT']        
-        if (self.channelOut == None) or (self.channelOut == ''):
-            raise Exception("No GPIO output defined.")            
-        logging.info("Configuring GPIO_" + self.channelOut + " as an output.")
-        self.channelOut = int(self.channelOut)
-        GPIO.setup(int(self.channelOut), GPIO.OUT)
+        if (config.has_option(self.configSection, 'GPIO_OUTPUT')):
+            self.channelOut = self.featureOptions['GPIO_OUTPUT']           
+            logging.info("Configuring GPIO_" + self.channelOut + " as an output.")
+            self.channelOut = int(self.channelOut)
+            GPIO.setup(int(self.channelOut), GPIO.OUT)
          
         # GPIO event set up
         GPIO.add_event_detect(self.channelIn, GPIO.RISING, callback=self.processEvent, bouncetime=75)
     
     def start(self): 
-        GPIO.output(self.channelOut, GPIO.HIGH)
+        if hasattr(self, 'channelOut'):
+            GPIO.output(self.channelOut, GPIO.HIGH)
+            print("out")
+        else:
+            print("pas out")
         
     def stop(self):
-        GPIO.output(self.channelOut, GPIO.LOW)
+        if hasattr(self, 'channelOut'):
+            GPIO.output(self.channelOut, GPIO.LOW)
