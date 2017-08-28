@@ -65,6 +65,9 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 **Led system**
 ![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Led-system.png?raw=true)
 
+**PCB**
+![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Shift-register-PCB.png?raw=true)
+
 # Ideas for additionnal features
 Smoke
 Demo mode
