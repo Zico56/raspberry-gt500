@@ -38,9 +38,6 @@ class GpioFeature(GenericFeature):
     def start(self): 
         if hasattr(self, 'channelOut'):
             GPIO.output(self.channelOut, GPIO.HIGH)
-            print("out")
-        else:
-            print("pas out")
         
     def stop(self):
         if hasattr(self, 'channelOut'):
