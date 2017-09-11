@@ -69,6 +69,7 @@ class ShiftRegister():
             
     def setRegisterOutput(self):
         # Iteration on each 74HC595 bit/output
+        #print(format(self.ledTemplate, '08b'))
         for bit in range(0, 16):  
             # Masking and setting state for each 74HC595 output
             GPIO.output(self.SDI, 0x01 & (self.ledTemplate >> bit))
@@ -96,7 +97,8 @@ class ShiftRegister():
         self.thread.event.set()  
        
     def setLightModule(self, lightModule, moduleMode):
-        lightModules.append(lightModule)
+        if not (lightModule in lightModules):
+            lightModules.append(lightModule)
         lightModulesMode[lightModule] = moduleMode
     
     def unsetLightModule(self, lightModule):
@@ -107,7 +109,7 @@ class ShiftRegister():
         self.ledTemplate = NO_LIGHT
         
         for lightModule in lightModules:
-            moduleMode = lightModulesMode[lightModule]          
+            moduleMode = lightModulesMode[lightModule]         
             if (moduleMode != 0):
                 ledMask = lightModulesMask[lightModule][moduleMode]
                 
