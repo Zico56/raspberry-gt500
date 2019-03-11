@@ -20,7 +20,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | gpio 08 (SPI : CE0) | CE0 | Light2 IN (signal) |
 | gpio 09 (SPI : MISO) | MISO | Light3 IN (signal) |
 | gpio 10 (SPI : MOSI) | MOSI | Light4 IN (signal) |
-| gpio 11 (SPI : CLK) | SCLK  | N/A |
+| gpio 11 (SPI : CLK) | SCLK  | Light4 OUT (button led) |
 | gpio 14 (UART : TXD) | TXD | Power Led |
 | gpio 15 (UART : RXD) | RXD | NC (because of UART activated) |
 | gpio 17 | P0  | Shift register SDI |
