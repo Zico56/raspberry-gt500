@@ -53,7 +53,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 
 # Light features
 | Button | Function of led |
-| --------|---------|-------|
+| --------|---------|
 | LIGHT_01/LIGHT_02 | head left position/turn indicator |
 | LIGHT_01 | tail left turn indicator #1 |
 | LIGHT_01 | tail left turn indicator #2 |
