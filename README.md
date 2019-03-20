@@ -51,6 +51,26 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | 15 | roof light   | (x1) |
 | 16 | stop light | N/A |
 
+# Light features
+| Button | Function of led |
+| --------|---------|-------|
+| LIGHT_01/LIGHT_02 | head left position/turn indicator |
+| LIGHT_01 | tail left turn indicator #1 |
+| LIGHT_01 | tail left turn indicator #2 |
+| LIGHT_01 | tail left turn indicator #3 |
+| LIGHT_01/LIGHT_02 | head right position/turn indicator |
+| LIGHT_01 | tail right turn indicator #1 |
+| LIGHT_01 | tail right turn indicator #2 |
+| LIGHT_01 | tail right turn indicator #3 |
+| LIGHT_02 | lateral position lights |
+| LIGHT_02 | tail light |
+| LIGHT_03 | head lights |
+| LIGHT_03 | rear license plate |
+| LIGHT_03 | dashboard    |
+| LIGHT_04 | fog lights |
+| LIGHT_04 | roof light   |
+| LIGHT_04 | stop light |
+
 # Wiring
 
 **Power supply**
