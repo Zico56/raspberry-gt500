@@ -49,7 +49,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | 13 | rear license plate | (x2) |
 | 14 | dashboard    | (x2) |
 | 15 | roof light   | (x1) |
-| 16 | N/A| N/A |
+| 16 | stop light | N/A |
 
 # Wiring
 
