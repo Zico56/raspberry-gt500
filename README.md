@@ -50,6 +50,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | 14 | dashboard    | (x2) |
 | 15 | roof light   | (x1) |
 | 16 | stop light | N/A |
+| 17 | rear lights | N/A |
 
 # Light features
 | Button | Function of led |
