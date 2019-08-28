@@ -12,6 +12,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 # Features
 | Button | Feature |
 | --------|---------|
+| POWER | Start/Stop the system |
 | GALLERY | Display/Hide pictures gallery |
 | AUDIO | Play GT500 engine sound samples |
 | VIDEO | Play GT500 presentation video |
@@ -53,25 +54,22 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
  BCM | Cobbler Pin | Function |
 | --------|---------|-------|
 | gpio 02 (I2C : SDA) | SDA | I2C LCD screen |
-| gpio 03 (I2C : SCL) | SCL | Power function (on) + I2C LCD screen |
-| gpio 04 | P7 | Power function (off) |
-| gpio 07 (SPI : CE1) | CE1 | Light1 IN (signal) |
-| gpio 08 (SPI : CE0) | CE0 | Light2 IN (signal) |
-| gpio 09 (SPI : MISO) | MISO | Light3 IN (signal) |
-| gpio 10 (SPI : MOSI) | MOSI | Light4 IN (signal) |
-| gpio 11 (SPI : CLK) | SCLK  | Light4 OUT (button led) |
-| gpio 14 (UART : TXD) | TXD | Power Led |
+| gpio 03 (I2C : SCL) | SCL | 'POWER' button "on" signal + I2C LCD screen |
+| gpio 04 | P7 | 'POWER' button "off" signal |
+| gpio 07 (SPI : CE1) | CE1 | 'LIGHT_2' button input signal |
+| gpio 08 (SPI : CE0) | CE0 | 'LIGHT_1' button input signal |
+| gpio 09 (SPI : MISO) | MISO | 'LIGHT_4' led output signal |
+| gpio 10 (SPI : MOSI) | MOSI | 'LIGHT_4' button input signal |
+| gpio 11 (SPI : CLK) | SCLK  | 'LIGHT_3' button input signal |
+| gpio 14 (UART : TXD) | TXD | 'POWER' led output signal |
 | gpio 15 (UART : RXD) | RXD | NC (because of UART activated) |
-| gpio 17 | P0  | Shift register SDI |
+| gpio 17 | P0  | Shift register SDI/SER |
 | gpio 18 (PWM) | P1 | Shift register RCLK |
-| gpio 22 | P3 | Gallery IN (signal) |
-| gpio 23 | P4 | Audio IN (signal) |
-| gpio 24 | P5 | Video IN (signal) |
-| gpio 25 | P6 | N/A (IR control ?) |
+| gpio 22 | P3 | N/A |
+| gpio 23 | P4 | 'AUDIO' button input signal |
+| gpio 24 | P5 | 'VIDEO' button input signal |
+| gpio 25 | P6 | 'GALLERY' button input signal |
 | gpio 27 | P2 | Shift register SRCLK |
-
-
-
 
 
 # Wiring
