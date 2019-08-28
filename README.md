@@ -1,14 +1,61 @@
 # raspberry-gt500
 Project for animating and lighting up a scale model (Revell Shelby GT500 2010) with a raspberry pi
 
-# Power supply
+# Power supply (TODO)
 | Component | Voltage |
 | --------|---------|
 | Raspberry | 5V |
 | Screen | 9V/12V |
 | Electronic (with breadboard) | 9V |
-| Smoke (not implemented) | 12V |
-| Battery supply (not implemented) | 12V |
+
+
+# Features
+| Button | Feature |
+| --------|---------|
+| GALLERY | Display/Hide pictures gallery |
+| AUDIO | Play GT500 engine sound samples |
+| VIDEO | Play GT500 presentation video |
+| LIGHT_01 | Head lights <br> Tail lights <br> Front  position lights <br> Side position lights <br> Dashboard <br> (+ License plate? + Roof light?) |
+| LIGHT_02 | Fog lights |
+| LIGHT_03 | Stop lights |
+| LIGHT_04 | Turn lights |
+
+
+# Specific lights behaviour
+| LIGHT_04 | Turn lights |
+| --------|---------|
+| Fist press | Left front/tail turn indicator blinking (sequential light for rear lights) | 
+| Second press | Right front/tail turn indicator blinking (sequential light for rear lights) | 
+| Third press | Warning lights (all blinking at the same time) | 
+| Fourth press | All blinking off | 
+
+# Lights feature and triggers
+| Led system | Feature | Trigger |
+| -------- | --------- |
+| Head lights | ---------| --------- |
+| Tail light |---------|
+| Left head position/turn indicator | ---------|
+| Right head position/turn indicator |---------|
+| --------|---------|
+
+
+
+LIGHT_01/LIGHT_02	head left position/turn indicator
+LIGHT_01	tail left turn indicator #1
+LIGHT_01	tail left turn indicator #2
+LIGHT_01	tail left turn indicator #3
+LIGHT_01/LIGHT_02	head right position/turn indicator
+LIGHT_01	tail right turn indicator #1
+LIGHT_01	tail right turn indicator #2
+LIGHT_01	tail right turn indicator #3
+LIGHT_02	lateral position lights
+LIGHT_02	
+LIGHT_03	
+LIGHT_03	rear license plate
+LIGHT_03	dashboard
+LIGHT_04	fog lights
+LIGHT_04	roof light
+LIGHT_04	stop light
 
 # GPIO Mapping
  BCM | Cobbler Pin | Function |
@@ -52,25 +99,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | 16 | stop light | N/A |
 | 17 | rear lights | N/A |
 
-# Light features
-| Button | Function of led |
-| --------|---------|
-| LIGHT_01/LIGHT_02 | head left position/turn indicator |
-| LIGHT_01 | tail left turn indicator #1 |
-| LIGHT_01 | tail left turn indicator #2 |
-| LIGHT_01 | tail left turn indicator #3 |
-| LIGHT_01/LIGHT_02 | head right position/turn indicator |
-| LIGHT_01 | tail right turn indicator #1 |
-| LIGHT_01 | tail right turn indicator #2 |
-| LIGHT_01 | tail right turn indicator #3 |
-| LIGHT_02 | lateral position lights |
-| LIGHT_02 | tail light |
-| LIGHT_03 | head lights |
-| LIGHT_03 | rear license plate |
-| LIGHT_03 | dashboard    |
-| LIGHT_04 | fog lights |
-| LIGHT_04 | roof light   |
-| LIGHT_04 | stop light |
+
 
 # Wiring
 
