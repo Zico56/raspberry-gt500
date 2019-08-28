@@ -15,9 +15,9 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | GALLERY | Display/Hide pictures gallery |
 | AUDIO | Play GT500 engine sound samples |
 | VIDEO | Play GT500 presentation video |
-| LIGHT_01 | Head lights <br> Tail lights <br> Front  position lights <br> Side position lights <br> Dashboard <br> (+ License plate? + Roof light?) |
+| LIGHT_01 | Head lights <br> Tail lights <br> Front  position lights <br> Side position lights <br> Dashboard <br> (+ License plate?) |
 | LIGHT_02 | Fog lights |
-| LIGHT_03 | Stop lights |
+| LIGHT_03 | Roof light <br> Reverse lights |
 | LIGHT_04 | Turn lights |
 
 
@@ -29,33 +29,25 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | Third press | Warning lights (all blinking at the same time) | 
 | Fourth press | All blinking off | 
 
-# Lights feature and triggers
-| Led system | Feature | Trigger |
-| -------- | --------- |
-| Head lights | ---------| --------- |
-| Tail light |---------|
-| Left head position/turn indicator | ---------|
-| Right head position/turn indicator |---------|
-| --------|---------|
-
-
-
-LIGHT_01/LIGHT_02	head left position/turn indicator
-LIGHT_01	tail left turn indicator #1
-LIGHT_01	tail left turn indicator #2
-LIGHT_01	tail left turn indicator #3
-LIGHT_01/LIGHT_02	head right position/turn indicator
-LIGHT_01	tail right turn indicator #1
-LIGHT_01	tail right turn indicator #2
-LIGHT_01	tail right turn indicator #3
-LIGHT_02	lateral position lights
-LIGHT_02	
-LIGHT_03	
-LIGHT_03	rear license plate
-LIGHT_03	dashboard
-LIGHT_04	fog lights
-LIGHT_04	roof light
-LIGHT_04	stop light
+# Lights feature and shift register '74HC595' mapping
+| bit | Function of led | Nb of leds |
+| -------- | --------- | ------- |
+| 01 | Left head position/turn indicator | (x1) |
+| 02 | Left tail turn indicator #1 | (x1) |
+| 03 | Left tail turn indicator #2 | (x1) |
+| 04 | Left tail turn indicator #3 | (x1) |
+| 05 | Right head position/turn indicator | (x1) |
+| 06 | Right tail turn indicator #1 | (x1) |
+| 07 | Right tail turn indicator #2 | (x1) |
+| 08 | Right tail turn indicator #3 | (x1) |
+| 09 | Fog lights | (x2) |
+| 10 | Head lights | (x2) |
+| 11 | Tail light | (x6) |
+| 12 | Side position lights | (x4) |
+| 13 | License plate | (x2) |
+| 14 | Dashboard    | (x2) |
+| 15 | Roof light   | (x1) |
+| 16 | Reverse lights | (x4) |
 
 # GPIO Mapping
  BCM | Cobbler Pin | Function |
@@ -78,26 +70,7 @@ LIGHT_04	stop light
 | gpio 25 | P6 | N/A (IR control ?) |
 | gpio 27 | P2 | Shift register SRCLK |
 
-# Shift register '74HC595' Mapping
-| bit | Function of led | Nb of leds |
-| --------|---------|-------|
-| 01 | head left position/turn indicator | (x1) |
-| 02 | tail left turn indicator #1 | (x1) |
-| 03 | tail left turn indicator #2 | (x1) |
-| 04 | tail left turn indicator #3 | (x1) |
-| 05 | head right position/turn indicator | (x1) |
-| 06 | tail right turn indicator #1 | (x1) |
-| 07 | tail right turn indicator #2 | (x1) |
-| 08 | tail right turn indicator #3 | (x1) |
-| 09 | fog lights | (x2) |
-| 10 | lateral position lights | (x4) |
-| 11 | tail light | (x6) |
-| 12 | head lights | (x2) |
-| 13 | rear license plate | (x2) |
-| 14 | dashboard    | (x2) |
-| 15 | roof light   | (x1) |
-| 16 | stop light | N/A |
-| 17 | rear lights | N/A |
+
 
 
 
