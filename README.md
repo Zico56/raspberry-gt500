@@ -93,7 +93,8 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 ![alt text](https://github.com/Zico56/raspberry-gt500/blob/master/wiring/Shift-register-PCB.png?raw=true)
 
 # Ideas for additionnal features
-Smoke
-Demo mode
-Engine (phone vibrator)
-Battery mode
+Smoke<br>
+Demo mode<br>
+Engine (phone vibrator)<br>
+Battery mode<br>
+Remote control (wifi/phone)<br>
