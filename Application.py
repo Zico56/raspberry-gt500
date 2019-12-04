@@ -39,8 +39,8 @@ def shutdown(channel):
 
 # GPIO for power function
 gpioStop = int(config.get('APPLICATION', 'GPIO_STOP'))
-GPIO.setup(gpioStop, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(gpioStop, GPIO.FALLING, callback=shutdown, bouncetime=75)
+GPIO.setup(gpioStop, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(gpioStop, GPIO.RISING, callback=shutdown, bouncetime=75)
 
 fenetre.wm_title("Rasperry GT500")
 if not testMode:
