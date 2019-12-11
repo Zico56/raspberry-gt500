@@ -35,7 +35,8 @@ def createImage(imgPath):
 
 def shutdown(channel):  
     logging.info("shutdown")
-    #os.system("sudo shutdown -h now") 
+    if not testMode:
+        os.system("sudo shutdown -h now")
 
 # GPIO for power function
 gpioStop = int(config.get('APPLICATION', 'GPIO_STOP'))
