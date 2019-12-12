@@ -33,22 +33,22 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 # Lights feature and shift register '74HC595' mapping
 | bit | Function of led | Nb of leds |
 | -------- | --------- | ------- |
-| 01 | Left head position/turn indicator | (x1) |
-| 02 | Left tail turn indicator #1 | (x1) |
-| 03 | Left tail turn indicator #2 | (x1) |
-| 04 | Left tail turn indicator #3 | (x1) |
-| 05 | Right head position/turn indicator | (x1) |
-| 06 | Right tail turn indicator #1 | (x1) |
-| 07 | Right tail turn indicator #2 | (x1) |
-| 08 | Right tail turn indicator #3 | (x1) |
-| 09 | Fog lights | (x2) |
-| 10 | Head lights | (x2) |
-| 11 | Tail light | (x6) |
-| 12 | Side position lights | (x4) |
-| 13 | License plate | (x2) |
-| 14 | Dashboard    | (x2) |
-| 15 | Roof light   | (x1) |
-| 16 | Reverse lights | (x4) |
+| 00 | Left head position/turn indicator | (x1) |
+| 01 | Left tail turn indicator #1 | (x1) |
+| 02 | Left tail turn indicator #2 | (x1) |
+| 03 | Left tail turn indicator #3 | (x1) |
+| 04 | Right head position/turn indicator | (x1) |
+| 05 | Right tail turn indicator #1 | (x1) |
+| 06 | Right tail turn indicator #2 | (x1) |
+| 07 | Right tail turn indicator #3 | (x1) |
+| 08 | Fog lights | (x2) |
+| 09 | Head lights | (x2) |
+| 10 | Tail light | (x6) |
+| 11 | Side position lights | (x4) |
+| 12 | License plate | (x2) |
+| 13 | Dashboard    | (x2) |
+| 14 | Roof light   | (x1) |
+| 15 | Reverse lights | (x4) |
 
 # GPIO Mapping
  BCM | Cobbler Pin | Function |

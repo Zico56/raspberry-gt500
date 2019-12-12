@@ -33,7 +33,7 @@ class GpioFeature(GenericFeature):
             GPIO.setup(int(self.channelOut), GPIO.OUT)
          
         # GPIO event set up
-        GPIO.add_event_detect(self.channelIn, GPIO.RISING, callback=self.processEvent, bouncetime=75)
+        GPIO.add_event_detect(self.channelIn, GPIO.BOTH, callback=self.processEvent, bouncetime=75)
     
     def start(self): 
         if hasattr(self, 'channelOut'):

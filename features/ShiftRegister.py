@@ -16,22 +16,28 @@ lightModulesSeqIdx = {}
 lightModulesMode = {}
 lightModulesMask = {
     'TURN_INDICATORS': {
-        1: [0x0003,0x0004,0x0008],
-        2: [0x0030,0x0040,0x0080],
-        3: [0x0000,0x00ff],
+        1: [0x0003,0x0007,0x000f,0x0000,0x0000,0x0000], #Left
+        2: [0x0030,0x0070,0x00f0,0x0000,0x0000,0x0000], #Right
+        3: [0x0000,0x00ff],                             #Warning
     }, 
     'FOG_LIGHTS': {
-        1: 0x0100
+        1: 0x0000
     }, 
     'POSITION_LIGHTS': {
         1: 0x0211
     }, 
-    'MAIN_LIGHTS': {
+    'MAIN_LIGHTS': {    #front & tail lights, license plate, dashboard
         1: 0x3C00,
         2: 0x4C00
-    }
+    },    
+    'ROOF_LIGHT': {
+        1: 0x0211
+    },
+    'REVERSE_LIGHT': {
+        1: 0x0211
+    }                
 }
-NO_LIGHT = 0x0000
+ALL_LIGHTS_OFF = 0x0000
 
 class ShiftRegister():   
         
@@ -60,7 +66,7 @@ class ShiftRegister():
         self.resetRegister()
 
     def resetRegister(self):
-        self.ledTemplate = NO_LIGHT
+        self.ledTemplate = ALL_LIGHTS_OFF
         self.setRegisterOutput()
         self.displayRegisterOutput()
         
@@ -106,7 +112,7 @@ class ShiftRegister():
         lightModulesMode[lightModule] = 0
         
     def setTemplate(self):
-        self.ledTemplate = NO_LIGHT
+        self.ledTemplate = ALL_LIGHTS_OFF
         
         for lightModule in lightModules:
             moduleMode = lightModulesMode[lightModule]         
