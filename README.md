@@ -30,7 +30,8 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 | Third press | Warning lights (all blinking at the same time) | 
 | Fourth press | All blinking off | 
 
-| LIGHT_04 | Power lights |
+| POWER | Power lights |
+| --------|---------|
 | Lights up at boot|Plugged on serial port: TxD & RxD pin (GPIO 14 &15). Needs activation of UART mode (GPIO15 cannot be used as input/output anymore)|
 
 
