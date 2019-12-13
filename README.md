@@ -32,7 +32,7 @@ Project for animating and lighting up a scale model (Revell Shelby GT500 2010) w
 
 | POWER | Power lights |
 | --------|---------|
-| Lights up at boot|Plugged on serial port: TxD & RxD pin (GPIO 14 &15). Needs activation of UART mode (GPIO15 cannot be used as input/output anymore)|
+| Lights up at boot|Plugged on serial port: TxD & RxD pins (GPIO 14 &15). Activation of UART mode needed (GPIO15 cannot be used as input/output anymore)|
 
 
 # Lights feature and shift register '74HC595' mapping
