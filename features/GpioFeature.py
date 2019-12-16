@@ -31,14 +31,19 @@ class GpioFeature(GenericFeature):
             logging.info("Configuring GPIO_" + self.channelOut + " as an output.")
             self.channelOut = int(self.channelOut)
             GPIO.setup(int(self.channelOut), GPIO.OUT)
-         
-        # GPIO event set up
-        GPIO.add_event_detect(self.channelIn, GPIO.BOTH, callback=self.processEvent, bouncetime=75)
+        
+        # GPIO event set up (managing case if features in managed by flip flop hardware, or by software)
+        if (config.has_option(self.configSection, 'GPIO_OUTPUT')):
+            GPIO.add_event_detect(self.channelIn, GPIO.FALLING, callback=self.processEvent, bouncetime=75) 
+        else:
+            GPIO.add_event_detect(self.channelIn, GPIO.BOTH, callback=self.processEvent, bouncetime=75)
     
     def start(self): 
         if hasattr(self, 'channelOut'):
+            logging.info("Setting GPIO_" + str(self.channelOut) + " to HIGHT.")
             GPIO.output(self.channelOut, GPIO.HIGH)
         
     def stop(self):
         if hasattr(self, 'channelOut'):
+            logging.info("Setting GPIO_" + str(self.channelOut) + " to LOW.")
             GPIO.output(self.channelOut, GPIO.LOW)

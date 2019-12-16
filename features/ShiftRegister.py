@@ -15,27 +15,26 @@ lightModules = []
 lightModulesSeqIdx = {}
 lightModulesMode = {}
 lightModulesMask = {
-    'TURN_INDICATORS': {
-        1: [0x0003,0x0007,0x000f,0x0000,0x0000,0x0000], #Left
-        2: [0x0030,0x0070,0x00f0,0x0000,0x0000,0x0000], #Right
-        3: [0x0000,0x00ff],                             #Warning
-    }, 
-    'FOG_LIGHTS': {
-        1: 0x0000
-    }, 
     'POSITION_LIGHTS': {
-        1: 0x0211
-    }, 
+        1: 0x0811
+    },
     'MAIN_LIGHTS': {    #front & tail lights, license plate, dashboard
-        1: 0x3C00,
-        2: 0x4C00
-    },    
+        1: 0x3600
+    },
+    'FOG_LIGHTS': {
+        1: 0x0100
+    }, 
     'ROOF_LIGHT': {
-        1: 0x0211
+        1: 0x4000
     },
     'REVERSE_LIGHT': {
-        1: 0x0211
-    }                
+        1: 0x8000
+    },
+    'TURN_INDICATORS': {
+        1: [0x0003,0x0007,0x000f,0x0001,0x0001,0x0001], #Left
+        2: [0x0030,0x0070,0x00f0,0x0010,0x0010,0x0010], #Right
+        3: [0x00ff, 0x0000]                             #Warning
+    }              
 }
 ALL_LIGHTS_OFF = 0x0000
 
@@ -113,6 +112,40 @@ class ShiftRegister():
         
     def setTemplate(self):
         self.ledTemplate = ALL_LIGHTS_OFF
+        self.sleeptime = 0.5
+        
+        '''
+        if ('POSITION_LIGHTS' in lightModules):
+            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
+            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
+            self.ledTemplate = self.ledTemplate ^ ledMask
+        if ('MAIN_LIGHTS' in lightModules):
+            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
+            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
+            self.ledTemplate = self.ledTemplate ^ ledMask
+        if ('POSITION_LIGHTS' in lightModules):
+            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
+            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
+            self.ledTemplate = self.ledTemplate ^ ledMask
+        if ('TURN_INDICATORS' in lightModules):
+            self.sleeptime = 0.2
+            
+            moduleMode = lightModulesMode['TURN_INDICATORS'] 
+            maskList = lightModulesMask['TURN_INDICATORS'][moduleMode]
+            
+            maskId = lightModule + str(moduleMode)
+            if (maskId in lightModulesSeqIdx):
+                maskIdx = lightModulesSeqIdx[maskId]
+                if (maskIdx == len(maskList)-1):
+                    maskIdx = 0
+                else:
+                    maskIdx += 1
+            else:
+                maskIdx = 0
+                
+            ledMask = maskList[maskIdx]                
+            lightModulesSeqIdx[maskId] = maskIdx        
+        '''
         
         for lightModule in lightModules:
             moduleMode = lightModulesMode[lightModule]         
@@ -143,9 +176,10 @@ class ShiftRegister():
         self.setRegisterOutput()
         self.displayRegisterOutput()
             
+        logging.info("ledTemplate: " + str(bin(self.ledTemplate)))
+            
         # Time out delay between two sequence of the led template
-        sleeptime = 0.5
-        time.sleep(sleeptime)     
+        time.sleep(self.sleeptime)     
 
 register = ShiftRegister()   
   
