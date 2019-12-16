@@ -34,7 +34,7 @@ class GpioFeature(GenericFeature):
         
         # GPIO event set up (managing case if features in managed by flip flop hardware, or by software)
         if (config.has_option(self.configSection, 'GPIO_OUTPUT')):
-            GPIO.add_event_detect(self.channelIn, GPIO.FALLING, callback=self.processEvent, bouncetime=75) 
+            GPIO.add_event_detect(self.channelIn, GPIO.FALLING, callback=self.processEvent, bouncetime=500) 
         else:
             GPIO.add_event_detect(self.channelIn, GPIO.BOTH, callback=self.processEvent, bouncetime=75)
     

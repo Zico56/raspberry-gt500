@@ -31,7 +31,7 @@ lightModulesMask = {
         1: 0x8000
     },
     'TURN_INDICATORS': {
-        1: [0x0003,0x0007,0x000f,0x0001,0x0001,0x0001], #Left
+        1: [0x0003,0x0007,0x000f,0x0001,0x0001,0x0001,0x0002,0x0006,0x000e,0x0000,0x0000,0x0000], #Left
         2: [0x0030,0x0070,0x00f0,0x0010,0x0010,0x0010], #Right
         3: [0x00ff, 0x0000]                             #Warning
     }              
@@ -176,7 +176,7 @@ class ShiftRegister():
         self.setRegisterOutput()
         self.displayRegisterOutput()
             
-        logging.info("ledTemplate: " + str(bin(self.ledTemplate)))
+        #logging.info("ledTemplate: " + str(bin(self.ledTemplate)))
             
         # Time out delay between two sequence of the led template
         time.sleep(self.sleeptime)     
