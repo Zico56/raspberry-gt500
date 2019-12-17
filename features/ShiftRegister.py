@@ -112,7 +112,7 @@ class ShiftRegister():
         
     def setTemplate(self):
         self.ledTemplate = ALL_LIGHTS_OFF
-        self.sleeptime = 0.5
+        self.sleeptime = 0.4
                                 
         for lightModule in lightModules:
             moduleMode = lightModulesMode[lightModule]  
@@ -147,11 +147,11 @@ class ShiftRegister():
             #(otherwise, front lights are desynchronized because of the XOR mask)
             if ('POSITION_LIGHTS' in lightModules):
                 if(moduleMode == 1):
-                    self.ledTemplate = self.ledTemplate | 0x1
+                    self.ledTemplate = self.ledTemplate ^ 0x1
                 elif(moduleMode == 2):
-                    self.ledTemplate = self.ledTemplate | 0x4
+                    self.ledTemplate = self.ledTemplate ^ 0x4
                 elif(moduleMode == 3):
-                    self.ledTemplate = self.ledTemplate | 0x5
+                    self.ledTemplate = self.ledTemplate ^ 0x5
     
     def _74hc595(self):
         # Display template for leds
