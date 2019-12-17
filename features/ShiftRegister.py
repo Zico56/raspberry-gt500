@@ -113,40 +113,7 @@ class ShiftRegister():
     def setTemplate(self):
         self.ledTemplate = ALL_LIGHTS_OFF
         self.sleeptime = 0.5
-        
-        '''
-        if ('POSITION_LIGHTS' in lightModules):
-            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
-            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
-            self.ledTemplate = self.ledTemplate ^ ledMask
-        if ('MAIN_LIGHTS' in lightModules):
-            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
-            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
-            self.ledTemplate = self.ledTemplate ^ ledMask
-        if ('POSITION_LIGHTS' in lightModules):
-            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
-            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
-            self.ledTemplate = self.ledTemplate ^ ledMask
-        if ('TURN_INDICATORS' in lightModules):
-            self.sleeptime = 0.2
-            
-            moduleMode = lightModulesMode['TURN_INDICATORS'] 
-            maskList = lightModulesMask['TURN_INDICATORS'][moduleMode]
-            
-            maskId = lightModule + str(moduleMode)
-            if (maskId in lightModulesSeqIdx):
-                maskIdx = lightModulesSeqIdx[maskId]
-                if (maskIdx == len(maskList)-1):
-                    maskIdx = 0
-                else:
-                    maskIdx += 1
-            else:
-                maskIdx = 0
                 
-            ledMask = maskList[maskIdx]                
-            lightModulesSeqIdx[maskId] = maskIdx        
-        '''
-        
         for lightModule in lightModules:
             moduleMode = lightModulesMode[lightModule]         
             if (moduleMode != 0):
@@ -180,9 +147,7 @@ class ShiftRegister():
         
         self.setRegisterOutput()
         self.displayRegisterOutput()
-            
-        #logging.info("ledTemplate: " + str(bin(self.ledTemplate)))
-            
+                 
         # Time out delay between two sequence of the led template
         time.sleep(self.sleeptime)     
 
