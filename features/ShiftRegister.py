@@ -147,11 +147,11 @@ class ShiftRegister():
             #(otherwise, front lights are desynchronized because of the XOR mask)
             if ('POSITION_LIGHTS' in lightModules):
                 if(moduleMode == 1):
-                    self.ledTemplate = self.ledTemplate ^ 0x1
+                    self.ledTemplate = self.ledTemplate ^ 0x0001
                 elif(moduleMode == 2):
-                    self.ledTemplate = self.ledTemplate ^ 0x4
+                    self.ledTemplate = self.ledTemplate ^ 0x0010
                 elif(moduleMode == 3):
-                    self.ledTemplate = self.ledTemplate ^ 0x5
+                    self.ledTemplate = self.ledTemplate ^ 0x0011
     
     def _74hc595(self):
         # Display template for leds
