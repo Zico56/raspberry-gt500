@@ -113,15 +113,11 @@ class ShiftRegister():
     def setTemplate(self):
         self.ledTemplate = ALL_LIGHTS_OFF
         self.sleeptime = 0.5
-                
+                                
         for lightModule in lightModules:
-            moduleMode = lightModulesMode[lightModule]         
-            if (moduleMode != 0):
-                
-                # Specific case: modifying tempo for turn lights
-                if (lightModule == 'TURN_INDICATORS' and moduleMode == 3):
-                    self.sleeptime = 0.1
-                
+            moduleMode = lightModulesMode[lightModule]  
+                   
+            if (moduleMode != 0):                
                 mask = lightModulesMask[lightModule][moduleMode]
                 
                 if (type(mask) == list):
@@ -140,10 +136,26 @@ class ShiftRegister():
                     lightModulesSeqIdx[maskId] = maskIdx
 
                 self.ledTemplate = self.ledTemplate ^ mask
+        
+        # Specific case for "turn indicators"
+        if ('TURN_INDICATORS' in lightModules):
+            #Modifying tempo for left/right indicators (for led chaser)
+            if (lightModulesMode['TURN_INDICATORS']==1 or lightModulesMode['TURN_INDICATORS']==2):
+                self.sleeptime = 0.1
+            
+            #Complementing bit 0 and 4 if "Position light" is on 
+            #(otherwise, front light is desynchronized because of the XOR mask)
+            if ('POSITION_LIGHTS' in lightModules):
+                if(moduleMode == 1):
+                    self.ledTemplate = self.ledTemplate | 0x1
+                elif(moduleMode == 2):
+                    self.ledTemplate = self.ledTemplate | 0x4
     
     def _74hc595(self):
         # Display template for leds
         self.setTemplate()
+        
+        logging.info("Led template: " + str(bin(self.ledTemplate)))
         
         self.setRegisterOutput()
         self.displayRegisterOutput()

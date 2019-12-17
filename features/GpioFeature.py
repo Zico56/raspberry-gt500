@@ -40,10 +40,10 @@ class GpioFeature(GenericFeature):
     
     def start(self): 
         if hasattr(self, 'channelOut'):
-            logging.info("Setting GPIO_" + str(self.channelOut) + " to HIGHT.")
+            #logging.info("Setting GPIO_" + str(self.channelOut) + " to HIGHT.")
             GPIO.output(self.channelOut, GPIO.HIGH)
         
     def stop(self):
         if hasattr(self, 'channelOut'):
-            logging.info("Setting GPIO_" + str(self.channelOut) + " to LOW.")
+            #logging.info("Setting GPIO_" + str(self.channelOut) + " to LOW.")
             GPIO.output(self.channelOut, GPIO.LOW)
