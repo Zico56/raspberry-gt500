@@ -113,59 +113,31 @@ class ShiftRegister():
     def setTemplate(self):
         self.ledTemplate = ALL_LIGHTS_OFF
         self.sleeptime = 0.5
-        
-        '''
-        if ('POSITION_LIGHTS' in lightModules):
-            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
-            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
-            self.ledTemplate = self.ledTemplate ^ ledMask
-        if ('MAIN_LIGHTS' in lightModules):
-            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
-            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
-            self.ledTemplate = self.ledTemplate ^ ledMask
-        if ('POSITION_LIGHTS' in lightModules):
-            moduleMode = lightModulesMode['POSITION_LIGHTS'] 
-            ledMask = lightModulesMask['POSITION_LIGHTS'][moduleMode]
-            self.ledTemplate = self.ledTemplate ^ ledMask
-        if ('TURN_INDICATORS' in lightModules):
-            self.sleeptime = 0.2
-            
-            moduleMode = lightModulesMode['TURN_INDICATORS'] 
-            maskList = lightModulesMask['TURN_INDICATORS'][moduleMode]
-            
-            maskId = lightModule + str(moduleMode)
-            if (maskId in lightModulesSeqIdx):
-                maskIdx = lightModulesSeqIdx[maskId]
-                if (maskIdx == len(maskList)-1):
-                    maskIdx = 0
-                else:
-                    maskIdx += 1
-            else:
-                maskIdx = 0
                 
-            ledMask = maskList[maskIdx]                
-            lightModulesSeqIdx[maskId] = maskIdx        
-        '''
-        
         for lightModule in lightModules:
             moduleMode = lightModulesMode[lightModule]         
             if (moduleMode != 0):
-                ledMask = lightModulesMask[lightModule][moduleMode]
                 
-                if (type(ledMask) == list):
-                    idxKey = lightModule + str(moduleMode)
+                # Specific case: modifying tempo for turn lights
+                if (lightModule == 'TURN_INDICATORS' and moduleMode != 3):
+                    self.sleeptime = 0.1
+                
+                maskList = lightModulesMask[lightModule][moduleMode]
+                
+                if (type(maskList) == list):
+                    maskId = lightModule + str(moduleMode)
                     
-                    if (idxKey in lightModulesSeqIdx):
-                        seqIdx = lightModulesSeqIdx[idxKey]
-                        if (seqIdx == len(ledMask)-1):
-                            seqIdx = 0
+                    if (maskId in lightModulesSeqIdx):
+                        maskIdx = lightModulesSeqIdx[maskId]
+                        if (maskIdx == len(maskList)-1):
+                            maskIdx = 0
                         else:
-                            seqIdx += 1
+                            maskIdx += 1
                     else:
-                        seqIdx = 0
+                        maskIdx = 0
                         
-                    ledMask = ledMask[seqIdx]
-                    lightModulesSeqIdx[idxKey] = seqIdx
+                    maskList = ledMask[maskIdx]
+                    lightModulesSeqIdx[maskId] = maskIdx
 
                 self.ledTemplate = self.ledTemplate ^ ledMask
     
