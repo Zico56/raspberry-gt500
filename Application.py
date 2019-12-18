@@ -70,17 +70,8 @@ register.start()
 
 # Adding feature
 nbOfFeaturesMax = config.getint('APPLICATION', 'MAX_NB_OF_FEATURES')
-#nbOfFeaturesSet = 0
 
-'''
-def getlist(option, sep=','):
-    list = []
-    for chunk in option.split(sep):
-        if(chunk != ''):
-            list.append(chunk)
-    return list
-'''
-
+# Init GUI
 windowWidth = 800
 paneWidth = (windowWidth-30)//7
 for x in range(1, nbOfFeaturesMax+1):
@@ -92,7 +83,6 @@ for x in range(1, nbOfFeaturesMax+1):
         horizontalPW.add(imgFrame)
     
         feature = GenericFeature(imgFrame, configSection)     
-        #nbOfFeaturesSet += 1
 
 # Configuring window size              
 fenetre.geometry('%dx%d+%d+%d' % (800, 480, 0, 0))
